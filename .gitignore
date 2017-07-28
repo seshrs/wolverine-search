@@ -1,0 +1,8 @@
+puphpet/config-custom.yaml
+.vagrant
+puphpet/files/dot/ssh
+!puphpet/files/dot/ssh/insecure_private_key
+
+ws/data/*
+ws/scripts/dbconfig.php
+ws/sitevars.php
