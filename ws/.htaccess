@@ -1,0 +1,34 @@
+RewriteEngine on
+
+# Request URI is /
+RewriteCond %{REQUEST_URI} ^$ [OR]
+RewriteCond %{REQUEST_URI} ^/$
+RewriteRule ^(.*)$ /pages/landingPage_bootstrap.php [L]
+
+# Request URI is /search
+RewriteCond %{REQUEST_URI} ^/search$ [OR]
+RewriteCond %{REQUEST_URI} ^/search/$
+RewriteRule ^(.*)$ /search/search.php [L]
+
+# Request URI is /about
+RewriteCond %{REQUEST_URI} ^/about$ [OR]
+RewriteCond %{REQUEST_URI} ^/about/$
+RewriteRule ^(.*)$ /pages/readme.php [L]
+
+# Request URI is /list
+RewriteCond %{REQUEST_URI} ^/list$ [OR]
+RewriteCond %{REQUEST_URI} ^/list/$
+RewriteRule ^(.*)$ /pages/listOfCommands.php [L]
+
+# Request URI is /api/v1/documentation
+RewriteCond %{REQUEST_URI} ^/api/v1/documentation$ [OR]
+RewriteCond %{REQUEST_URI} ^/api/v1/documentation/$
+RewriteRule ^(.*)$ /api/fetchDocumentation.php [L]
+
+# Anything else goes to the 404 page
+RewriteCond %{REQUEST_URI} !^/search/search.php$
+RewriteCond %{REQUEST_URI} !^/Search-button.png$
+RewriteCond %{REQUEST_URI} !^/api.*$
+RewriteCond %{REQUEST_URI} !^/pages.*$
+RewriteCond %{REQUEST_URI} !^/static.*$
+RewriteRule ^(.*)$ /pages/error.php [L]

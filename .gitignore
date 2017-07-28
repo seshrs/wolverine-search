@@ -6,3 +6,5 @@ puphpet/files/dot/ssh
 ws/data/*
 ws/scripts/dbconfig.php
 ws/sitevars.php
+
+.DS_Store
