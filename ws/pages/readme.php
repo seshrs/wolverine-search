@@ -116,6 +116,23 @@ require('../sitevars.php');
         -o-transition: all 0.5s ease;
         transition: all 0.5s ease;
       }
+
+      /*.footer-container {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+      }*/
+      .footer {
+        height: 50px;
+        width: 100%;
+      }
+      .footer {
+        background-color: #f4f4f4;
+      }
+      .footer-text {
+        margin-top: 4px;
+        margin-bottom: 4px;
+      }
     </style>
   </head>
   
@@ -177,9 +194,12 @@ require('../sitevars.php');
         <div class="col-xs-12">
           <h2>Setup</h2>
           <p>
-            Follow the instructions to setup Wolverine Search on your browser. <a href="#" id="show-mobile-instructions-link">(Show Mobile Instructions instead.)</a><a href="#" id="show-desktop-instructions-link">(Show Desktop Instructions instead.)</a>
+            Wolverine Search tries to make it quicker to visit websites. To make it even more efficient, follow the instructions to setup Wolverine Search in your browser. <a href="#" id="show-mobile-instructions-link">(Show Mobile Instructions instead.)</a><a href="#" id="show-desktop-instructions-link">(Show Desktop Instructions instead.)</a>
           </p>
         </div>
+      </div>
+      <div class="alert alert-info">
+        For advanced configurations, <a href="#advanced-configuration" class="alert-link">scroll down first</a>.
       </div>
       <div class="desktop-instructions">
         <ul id="browsers" class="nav nav-tabs" role="tablist">
@@ -326,7 +346,7 @@ require('../sitevars.php');
             </div>
           </div>
           
-          <h3>Advanced Configuration</h3>
+          <h3 id="advanced-configuration">Advanced Configuration</h3>
           
           <div class="panel panel-default">
             <div class="panel-body">
@@ -358,6 +378,16 @@ require('../sitevars.php');
       </div>
       
       <div id="snackbar"></div>
+    </div>
+
+    <div class="container-fluid footer-container">
+      <div class="row">
+        <footer class="footer text-center col-xs-12">
+          <p class="footer-text">
+            Developed for the <a href="https://www.umich.edu">University of Michigan</a> by Sesh Sadasivam. <a href="https://github.com/seshrs/wolverine-search/tree/master/ws">Want to contribute?</a>
+          </p>
+        </footer>
+      </div>
     </div>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

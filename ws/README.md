@@ -68,7 +68,7 @@ Some commands like `piazza`, `canvas`, etc. require information about classes to
 
 Once you have implemented your command, visit [http://www.ws.dev/?debug=1](http://www.ws.dev/?debug=1) to make sure that when you type different queries, your command behaves as expected. You will have to include information on the tests you conducted before your pull request is accepted.
 
-Don't forget to update the command's documentation! It can be found in the `__documentation__` folder, which is in the same folder as the command's PHP file. (Visit [http://www.ws.dev/list](http://www.ws.dev/list) to ensure that the documentation renders correctly.)
+Don't forget to update the command's documentation! It can be found in the `documentation` folder, which is in the same folder as the command's PHP file. (Visit [http://www.ws.dev/list](http://www.ws.dev/list) to ensure that the documentation renders correctly.)
 
 ### Creating new commands
 Creating a command is not that hard!
@@ -79,7 +79,7 @@ From your commandline interface, type `vagrant ssh` and then navigate to `/vagra
 
 Then visit [http://www.ws.dev/?debug=1](http://www.ws.dev/?debug=1) and enter different queries that use your command. Ensure that your command behaves as you expect.
 
-Don't forget to add documentation for the command! If it doesn't already exist, create a folder titled `__documentation__` in the same folder that the command's PHP file is located in. Inside this folder, create a file titled `<filename>.command.md`, and write documentation for your command. (Check out other documentation files for inspiration.) 
+Don't forget to add documentation for the command! If it doesn't already exist, create a folder titled `documentation` in the same folder that the command's PHP file is located in. Inside this folder, create a file titled `<filename>.command.md`, and write documentation for your command. (Check out other documentation files for inspiration.) 
 Visit [http://www.ws.dev/list](http://www.ws.dev/list) to ensure that the documentation renders correctly.
 
 ### Creating new default commands

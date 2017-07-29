@@ -42,6 +42,23 @@ require('../sitevars.php');
       .hidden {
         display: none;
       }
+
+      /*.footer-container {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+      }*/
+      .footer {
+        height: 50px;
+        width: 100%;
+      }
+      .footer {
+        background-color: #f4f4f4;
+      }
+      .footer-text {
+        margin-top: 4px;
+        margin-bottom: 4px;
+      }
     </style>
   </head>
   
@@ -87,6 +104,16 @@ require('../sitevars.php');
             <span class="sr-only">Documentation Loading</span>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="container-fluid footer-container">
+      <div class="row">
+        <footer class="footer text-center col-xs-12">
+          <p class="footer-text">
+            Developed for the <a href="https://www.umich.edu">University of Michigan</a> by Sesh Sadasivam. <a href="https://github.com/seshrs/wolverine-search/tree/master/ws">Want to contribute?</a>
+          </p>
+        </footer>
       </div>
     </div>
     

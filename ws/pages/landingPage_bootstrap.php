@@ -142,7 +142,7 @@ if ($debug !== '1') {
       <div class="row">
         <footer class="footer text-center col-xs-12">
           <p class="footer-text">
-            Developed for the <a href="https://www.umich.edu">University of Michigan</a> by Sesh Sadasivam. <a href="#">Want to contribute?</a>
+            Developed for the <a href="https://www.umich.edu">University of Michigan</a> by Sesh Sadasivam. <a href="https://github.com/seshrs/wolverine-search/tree/master/ws">Want to contribute?</a>
           </p>
         </footer>
       </div>
