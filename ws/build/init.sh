@@ -56,6 +56,7 @@ mysql <build/create_ws_tables.sql
 echo "Done!\n"
 
 echo "${bold}[4/4] Building commands...${normal}"
+mkdir data
 make build
 
 echo ""

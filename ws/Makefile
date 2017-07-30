@@ -5,7 +5,6 @@ init:
 	sh build/init.sh
 
 build: FORCE
-	mkdir data
 	touch data/commandFileMap.json
 	php build/buildCommandFileMap.php
 
