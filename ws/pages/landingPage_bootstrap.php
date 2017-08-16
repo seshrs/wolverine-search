@@ -51,6 +51,9 @@ if ($debug !== '1') {
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <!-- Open Search -->
+    <link rel="search" type="application/opensearchdescription+xml" title="Wolverine Search" href="<?php echo $_SITE['URL']; ?>/pages/openSearch.xml.php?fallback=<?php echo $fallback; ?>&defaultCommand=<?php echo $defaultCommand; ?>">
     
     <style>
       html, body {

@@ -36,5 +36,17 @@ A mashup of services useful to students at the University of Michigan.
 <Image width="256" height="256" type="image/x-icon">"<?php echo $_SITE['URL']; ?>/Search-button.png"</Image>
 <Url type="text/html" method="get" template="<?php echo $_SITE['URL']; ?>/search?fallback=<?php echo $fallback; ?>&amp;q=<?php echo $defaultCommand; ?>{searchTerms}"/>
 <Url type="application/opensearchdescription+xml" rel="self" template="<?php echo $_SITE['URL']; ?>/pages/openSearch.xml.php" />
+<?php
+// if ($fallback == 'g') {
+//
+// <Url type="application/x-suggestions+json" template="http://suggestqueries.google.com/complete/search?output=toolbar&amp;hl=en&amp;q={searchTerms}"/>
+// <?php
+// }
+if ($fallback == 'bing') {
+?>
+<Url type="application/x-suggestions+json" template="http://api.bing.com/osjson.aspx?query={searchTerms}"/>
+<?php
+}
+?>
 <moz:SearchForm><?php echo $_SITE['URL']; ?>?fallback=<?php echo $fallback; ?><?php if ($defaultCommandProvided) echo "&amp;defaultCommand=" . $defaultCommand . "%20"; ?></moz:SearchForm>
 </OpenSearchDescription>

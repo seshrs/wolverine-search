@@ -352,8 +352,15 @@ require('../sitevars.php');
             <div class="panel-body">
               <h4>Fallback Command</h4>
               <p>By default, Wolverine Search falls back to performing a Google Search if the query does not begin with a valid command. However, you can change this behavior. For instance, making the fallback command <kbd>bing</kbd> will make Wolverine Search perform a Bing Search if the query does not begin with a valid command.</p>
-              <p>Type the fallback command you wish to use here. Then scroll up and follow the instructions in the <code>Setup</code> section.</p>
-              <input class="form-control" type="text" id="fallback-box" placeholder="g (Google)" />
+              <p>Choose the fallback command you wish to use here. Then scroll up and follow the instructions in the <code>Setup</code> section.</p>
+              <select id="fallback-select" class="form-control">
+                <option value="g" selected>Google (g)</option>
+                <option value="bing">Bing (bing)</option>
+                <option value="yubnub">Yubnub (yn)</option>
+              </select>
+              <br>
+              <p><em><kbd>bing</kbd> supports search suggestions in the URL bar!</em></p>
+              <!-- <input class="form-control" type="text" id="fallback-box" placeholder="g (Google)" /> -->
             </div>
           </div>
           
@@ -612,8 +619,8 @@ require('../sitevars.php');
     <script>
       // ADVANCED CONFIG
       (function () {
-        $('#fallback-box').on('keyup', function () {
-          var newFallbackCommand = $('#fallback-box').prop('value');
+        $('#fallback-select').on('change', function () {
+          var newFallbackCommand = $('#fallback-select').prop('value');
           if (!newFallbackCommand || !newFallbackCommand.length) {
             fallback = "g";
           }

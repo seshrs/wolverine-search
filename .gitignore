@@ -3,6 +3,8 @@ puphpet/config-custom.yaml
 puphpet/files/dot/ssh
 !puphpet/files/dot/ssh/insecure_private_key
 
+/html
+
 ws/data/*
 ws/scripts/dbconfig.php
 ws/sitevars.php
