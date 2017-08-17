@@ -8,4 +8,7 @@ build: FORCE
 	touch data/commandFileMap.json
 	php build/buildCommandFileMap.php
 
+uninstall: FORCE
+	sh build/uninstall.sh
+
 FORCE: ;

@@ -58,6 +58,20 @@ CREATE TABLE IF NOT EXISTS `QueryLog` (
   PRIMARY KEY (`Query`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Counts number of times each unique query was used in the current period.';
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `UniqueVisitorDevices`
+--
+
+CREATE TABLE IF NOT EXISTS `UniqueVisitorDevices` (
+  `DeviceID` varchar(500) NOT NULL COMMENT 'Random alphanumeric string unique to a device',
+  `WebHits` bigint(20) NOT NULL DEFAULT '0' COMMENT 'Number of times device visited website',
+  `SearchHits` bigint(20) NOT NULL DEFAULT '0' COMMENT 'Number of times device used search',
+  `DateLastModified` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Date when this row was last updated',
+  PRIMARY KEY (`DeviceID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Counts number of times each unique query was used in the current period.';
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
