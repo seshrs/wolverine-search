@@ -11,6 +11,10 @@
 //
 
 require('../sitevars.php');
+require_once('../scripts/analytics.php');
+
+// Analytics
+Analytics::runAnalytics(Analytics::$USER_ACTION['LANDING']);
 
 $fallback = isset($_REQUEST['fallback']) ? $_REQUEST['fallback'] : null;
 if (!$fallback || !strlen($fallback)) {

@@ -1,6 +1,10 @@
 <?php
 
 require('../sitevars.php');
+require_once('../scripts/analytics.php');
+
+// Analytics
+Analytics::runAnalytics(Analytics::$USER_ACTION['ABOUT']);
 
 ?>
 

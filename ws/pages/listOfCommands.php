@@ -4,6 +4,10 @@
 //   q ==> Filter query (optional)
 
 require('../sitevars.php');
+require_once('../scripts/analytics.php');
+
+// Analytics
+Analytics::runAnalytics(Analytics::$USER_ACTION['LIST']);
 
 ?>
 
