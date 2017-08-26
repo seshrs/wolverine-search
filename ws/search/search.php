@@ -6,6 +6,10 @@
 require_once('../sitevars.php');
 require_once('helpers.php');
 require_once('registerCommands.php');
+require_once('../scripts/analytics.php');
+
+// Analytics
+Analytics::runAnalytics(Analytics::$USER_ACTION['SEARCH']);
 
 // Returns a URL
 function processQuery($query) {

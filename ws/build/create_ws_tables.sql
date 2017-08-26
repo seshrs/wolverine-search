@@ -66,7 +66,9 @@ CREATE TABLE IF NOT EXISTS `QueryLog` (
 
 CREATE TABLE IF NOT EXISTS `UniqueVisitorDevices` (
   `DeviceID` varchar(500) NOT NULL COMMENT 'Random alphanumeric string unique to a device',
-  `WebHits` bigint(20) NOT NULL DEFAULT '0' COMMENT 'Number of times device visited website',
+  `LandingPageHits` bigint(20) NOT NULL DEFAULT '0' COMMENT 'Number of times device visited landing page',
+  `AboutPageHits` bigint(20) NOT NULL DEFAULT '0' COMMENT 'Number of times device visited about page',
+  `ListPageHits` bigint(20) NOT NULL DEFAULT '0' COMMENT 'Number of times device visited list of commands page',
   `SearchHits` bigint(20) NOT NULL DEFAULT '0' COMMENT 'Number of times device used search',
   `DateLastModified` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Date when this row was last updated',
   PRIMARY KEY (`DeviceID`)
