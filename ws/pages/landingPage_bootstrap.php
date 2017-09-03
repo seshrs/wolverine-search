@@ -42,7 +42,7 @@ if ($debug !== '1') {
     
     <!-- Other meta tags should go below this line -->
 
-    <title>Wolverine Search</title>
+    <title><?php echo $_SITE['name']; ?></title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -57,7 +57,7 @@ if ($debug !== '1') {
     <![endif]-->
 
     <!-- Open Search -->
-    <link rel="search" type="application/opensearchdescription+xml" title="Wolverine Search" href="<?php echo $_SITE['URL']; ?>/pages/openSearch.xml.php?fallback=<?php echo $fallback; ?>&defaultCommand=<?php echo $defaultCommand; ?>">
+    <link rel="search" type="application/opensearchdescription+xml" title="<?php echo $_SITE['name']; ?>" href="<?php echo $_SITE['URL']; ?>/pages/openSearch.xml.php?fallback=<?php echo $fallback; ?>&defaultCommand=<?php echo $defaultCommand; ?>">
     
     <style>
       html, body {
@@ -114,7 +114,7 @@ if ($debug !== '1') {
 
       <div class="row vertical-center-row text-center">
         <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-          <h1>Wolverine Search</h1>
+          <h1><?php echo $_SITE['name']; ?></h1>
           <form action="./search" method="GET">
             <div class="row">
               <div class="col-xs-12 col-sm-12">

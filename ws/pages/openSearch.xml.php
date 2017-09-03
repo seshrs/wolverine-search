@@ -28,7 +28,7 @@ header('Content-Type: text/xml');
 
 ?>
 <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:moz="http://www.mozilla.org/2006/browser/search/">
-<ShortName>Wolverine Search</ShortName>
+<ShortName><?php echo $_SITE['name']; ?></ShortName>
 <Description>
 A mashup of services useful to students at the University of Michigan.
 </Description>

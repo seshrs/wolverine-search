@@ -20,7 +20,7 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['LIST']);
     
     <!-- Other meta tags should go below this line -->
 
-    <title>List of Commands | Wolverine Search</title>
+    <title>List of Commands | <?php echo $_SITE['name']; ?></title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -159,7 +159,7 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['LIST']);
       }
       
       function fetchDocumentationFailed() {
-        $failureElement = "<p>Whoops, something whent wrong. <a href='mailto:seshrs@umich.edu?subject=[Wolverine Search] Fetch Documentation Failed!'>Let me know that this happened.</a></p>";
+        $failureElement = "<p>Whoops, something whent wrong. <a href='mailto:seshrs@umich.edu?subject=[<?php echo $_SITE['name']; ?>] Fetch Documentation Failed!'>Let me know that this happened.</a></p>";
         $('#documentation').html($failureElement);
       }
       
