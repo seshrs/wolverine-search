@@ -15,10 +15,10 @@ register_command('p', 'piazza_process_query');
 global $PIAZZA_CLASS_URLS;
 $PIAZZA_CLASS_URLS = [
   "eecs" => [
-    "280" => "j268bto81u44s2",
-    "485" => "iwqks3pw4ek1is",
-    "442" => "ixiaqagoao37oi",
-    "486" => "ixja7lvhrv57eo",
+    "280" => "j6xqzm6faq53n7", // FA 17
+    "485" => "iwqks3pw4ek1is", // WN 17
+    "442" => "ixiaqagoao37oi", // WN 17
+    "486" => "ixja7lvhrv57eo", // WN 17
   ],
   "engr" => [
     
