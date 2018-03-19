@@ -36,7 +36,7 @@ function cg_process_query($query) {
 
 function getCurrentTerm() {
 	// TODO: Build an automated system for this
-	return 'f_17_2160';
+	return 'f_18_2210';
 }
 
 function getTerm($query_terms) {

@@ -27,7 +27,11 @@ while ( !$itemsQueue->isEmpty() ) {
   else if ( $Helpers->endsWith($item, '.command.php') ) {
     $_COMMANDS = [];
     require_once($item);
-    foreach ( array_keys($_COMMANDS) as $command) {
+    foreach ( array_keys($_COMMANDS) as $command ) {
+      if (array_key_exists($command, $commandFileMap)) {
+        echo "ERROR: Duplicate definition of command `$command`. Aborting.\n";
+        exit(1);
+      }
       $commandFileMap[$command] = $item;
     }
   }

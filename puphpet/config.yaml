@@ -20,8 +20,8 @@ vagrantfile:
                         update_guest_tools: 0
                 machines:
                     vflm_rvgxe2i0l2iv:
-                        id: ws_dev
-                        hostname: ws.dev
+                        id: ws_local
+                        hostname: ws.local
                         network:
                             private_network: 192.168.56.101
                             forwarded_port:
@@ -229,9 +229,9 @@ apache:
         - headers
     vhosts:
         av_8up79boau98s:
-            servername: ws.dev
+            servername: ws.local
             serveraliases:
-                - www.ws.dev
+                - www.ws.local
             docroot: /var/www/ws
             port: '80'
             setenvif:

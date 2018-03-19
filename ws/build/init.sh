@@ -4,7 +4,8 @@ green=$(tput setaf 2)
 magenta=$(tput setaf 5)
 normal=$(tput sgr0)
 
-domain="http://www.ws.dev"
+domain="http://www.ws.local"
+name="Wolverine Search (Local)"
 fallback_command="g"
 dbname="ws_db"
 dbuser="root"
@@ -39,8 +40,12 @@ done
 #echo "\n${bold}Q2. ${normal}What is the name"
 
 echo "${bold}[1/4] Creating sitevars.php...${normal}"
-php build/create_sitevars.php $domain $fallback_command >sitevars.php
-echo "Done!\n"
+if php build/create_sitevars.php $domain "$name" $fallback_command >sitevars.php; then
+  echo "Done!\n"
+else
+  echo "${bold}${red}Could not create sitevars.php. Aborting...${normal}\n"
+  exit
+fi
 
 echo "${bold}[2/4] Creating dbconfig.php...${normal}"
 php build/create_dbconfig.php $dbname $dbuser $dbpwd >scripts/dbconfig.php

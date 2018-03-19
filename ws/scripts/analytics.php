@@ -45,6 +45,7 @@ class Analytics {
    * PRIVATE MEMBERS
    */
   private static function createDeviceID() {
+    return; // TODO: Re-implement analytics
     global $DBCONFIG;
 
     $numRowsInserted = 1;

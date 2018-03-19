@@ -34,7 +34,7 @@ code and instantly see the results of your changes, and to make sure that they w
     - Type `sudo nano /etc/hosts` and type your password.
     - Scroll to the bottom, and add this line at the end of the file
       ```
-      192.168.56.101 ws.dev www.ws.dev
+      192.168.56.101 ws.local www.ws.local
       ```
     - Type `Control-x` (to exit), then type `y` (to save), then press `Enter` (to close the editor).all
 
@@ -48,10 +48,10 @@ code and instantly see the results of your changes, and to make sure that they w
 7. Navigate to the folder `/vagrant/ws`. These are the files that actually run the Wolverine Search website.
 8. Type `make init`. When prompted, type `yes`.
 9. Type `exit` to exit the virtual machine.
-10. Visit `www.ws.dev` in your browser. You are now running a copy of Wolverine Search on your local machine!
+10. Visit `www.ws.local` in your browser. You are now running a copy of Wolverine Search on your local machine!
 
 ### Switch off the VM when not in use
-When you're done developing, type `vagrant halt` in your commandline interface to switch off the virtual machine. 
+When you're done developing, type `vagrant halt` in your command-line interface to switch off the virtual machine. 
 When you want to begin developing again, type `vagrant up` to switch it back on.
 
 ---
@@ -66,9 +66,9 @@ I recommend searching the [official PHP documentation](http://php.net/manual/en/
 Pre-existing commands can always be improved. The logic for executing the command can be made more efficient. 
 Some commands like `piazza`, `canvas`, etc. require information about classes to generate the correct URL, and this information needs to be updated each semester.
 
-Once you have implemented your command, visit [http://www.ws.dev/?debug=1](http://www.ws.dev/?debug=1) to make sure that when you type different queries, your command behaves as expected. You will have to include information on the tests you conducted before your pull request is accepted.
+Once you have implemented your command, visit [http://www.ws.local/?debug=1](http://www.ws.local/?debug=1) to make sure that when you type different queries, your command behaves as expected. You will have to include information on the tests you conducted before your pull request is accepted.
 
-Don't forget to update the command's documentation! It can be found in the `documentation` folder, which is in the same folder as the command's PHP file. (Visit [http://www.ws.dev/list](http://www.ws.dev/list) to ensure that the documentation renders correctly.)
+Don't forget to update the command's documentation! It can be found in the `documentation` folder, which is in the same folder as the command's PHP file. (Visit [http://www.ws.local/list](http://www.ws.local/list) to ensure that the documentation renders correctly.)
 
 ### Creating new commands
 Creating a command is not that hard!
@@ -77,13 +77,13 @@ Use one of the existing folders (or create a new one) and create a file titled `
 
 From your commandline interface, type `vagrant ssh` and then navigate to `/vagrant/ws`. Run the command `make build`.
 
-Then visit [http://www.ws.dev/?debug=1](http://www.ws.dev/?debug=1) and enter different queries that use your command. Ensure that your command behaves as you expect.
+Then visit [http://www.ws.local/?debug=1](http://www.ws.local/?debug=1) and enter different queries that use your command. Ensure that your command behaves as you expect.
 
 Don't forget to add documentation for the command! If it doesn't already exist, create a folder titled `documentation` in the same folder that the command's PHP file is located in. Inside this folder, create a file titled `<filename>.command.md`, and write documentation for your command. (Check out other documentation files for inspiration.) 
-Visit [http://www.ws.dev/list](http://www.ws.dev/list) to ensure that the documentation renders correctly.
+Visit [http://www.ws.local/list](http://www.ws.local/list) to ensure that the documentation renders correctly.
 
 ### Creating new default commands
-This is a fairly advanced section, and I am yet to write documentation for this. Read more about default commands in the ["about"](http://www.ws.dev/about) section. 
+This is a fairly advanced section, and I am yet to write documentation for this. Read more about default commands in the ["about"](http://www.ws.local/about) section. 
 If you'd like to see an example, `eecs280` is a default command, located in its own folder.
 
 If you plan to create a new default command, email me at seshrs@umich.edu.
