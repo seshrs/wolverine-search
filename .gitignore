@@ -9,4 +9,6 @@ ws/data/*
 ws/scripts/dbconfig.php
 ws/sitevars.php
 
+__build__/
+
 .DS_Store
