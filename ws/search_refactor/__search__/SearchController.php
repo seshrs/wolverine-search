@@ -16,8 +16,8 @@ class SearchController {
    */
   public static function search($custom_request = null) {
     $command_map = self::fetchCommandMap();
-    $request = self::parseRequest($command_map, $request);
-    $redirect_url = $request['command_executor']();
+    $request = self::parseRequest($command_map, $custom_request);
+    $redirect_url = $request['command_executor']($request['query']);
     self::redirectUser($redirect_url, $request);
     self::endConnection();
     self::logRequest($request, $request);
@@ -30,8 +30,8 @@ class SearchController {
    */
   private static function fetchCommandMap() {
     $command_map_json_filepath = __DIR__ . '/../__build__/commandMap.json';
-    $command_map_JSON = file_get_contents($command_file_map_JSON);
-    return json_decode($commandFileMapJSON);
+    $command_map_JSON = file_get_contents($command_map_json_filepath);
+    return json_decode($command_map_JSON);
   }
 
   private static function parseRequest($command_map, $custom_request = null) {
@@ -53,7 +53,7 @@ class SearchController {
     }
 
     // 2. Parse the command and rest of the query.
-    $query_terms = explode(' ', strtolower($query));
+    $query_terms = explode(' ', strtolower($raw_query));
     $command = array_shift($query_terms);
     $query = implode(' ', $query_terms);
 
@@ -74,7 +74,6 @@ class SearchController {
     // 5. Retrieve the command's executeQuery function
     $command_controller_filepath = $command_map->{$command};
     require_once(__DIR__ . '/../__definitions__/ICommandController.php');
-    require_once(__DIR__ . '/../__definitions__/Result.php');
     require_once($command_controller_filepath);
     $command_controller_name = basename($command_controller_filepath, '.command.php');
     $command_executor = [$command_controller_name, 'executeQuery'];
@@ -105,16 +104,13 @@ class SearchController {
       'result' => $redirect_url->getURL()
     ];
     header('Content-type: application/json');
-    echo json_encode($debug_info);
+    echo json_encode($debug_info, JSON_PRETTY_PRINT);
   }
 
   private static function endConnection() {
     header('Connection: close');
     header('Content-Length: ' . ob_get_length());
-    // TODO: Two out of these three are supposedly not required.
     ob_end_flush();
-    ob_flush();
-    flush();
   }
 
   private static function logRequest($request, $request) {

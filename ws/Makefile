@@ -10,6 +10,10 @@ build: FORCE
 	@touch data/commandFileMap.json
 	@php build/buildCommandFileMap.php
 
+build_refactor: FORCE
+	@touch search_refactor/__build__/commandMap.json
+	@php build/buildCommandMap.php
+
 uninstall: FORCE
 	@sh build/uninstall.sh
 

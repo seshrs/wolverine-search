@@ -8,7 +8,8 @@ RewriteRule ^(.*)$ /pages/landingPage_bootstrap.php [L]
 # Request URI is /search
 RewriteCond %{REQUEST_URI} ^/search$ [OR]
 RewriteCond %{REQUEST_URI} ^/search/$
-RewriteRule ^(.*)$ /search/search.php [L]
+# RewriteRule ^(.*)$ /search/search.php [L] # TODO: Remove
+RewriteRule ^(.*)$ /search_refactor/__search__/SearchController.php [L]
 
 # Request URI is /about
 RewriteCond %{REQUEST_URI} ^/about$ [OR]
@@ -27,6 +28,7 @@ RewriteRule ^(.*)$ /api/fetchDocumentation.php [L]
 
 # Anything else goes to the 404 page
 RewriteCond %{REQUEST_URI} !^/search/search.php$
+RewriteCond %{REQUEST_URI} !^/search_refactor/__search__/SearchController.php$
 RewriteCond %{REQUEST_URI} !^/Search-button.png$
 RewriteCond %{REQUEST_URI} !^/api.*$
 RewriteCond %{REQUEST_URI} !^/pages.*$

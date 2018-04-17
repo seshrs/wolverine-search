@@ -38,10 +38,8 @@ class Result {
     $this->command = null;
     $this->query = null;
 
+    self::validateURLOrThrow($url);
     $this->url = $url;
-    if (!$this->isUnresolvedURL()) {
-      self::validateURLOrThrow($this->url);
-    }
 
     return $this;
   }
@@ -99,7 +97,7 @@ class Result {
    * @return {bool} Whether the result object represents a URL.
    */
   public function isURL() {
-    return $this->isResultUnresolved() && $url !== null;
+    return !$this->isResultUnresolved() && $this->url !== null;
   }
 
   /**
@@ -107,7 +105,7 @@ class Result {
    * @return {bool} whether the result object represents a command-query pair.
    */
   public function isCommandQueryPair() {
-    return !$this->isURL();
+    return !$this->isResultUnresolved() && $this->command !== null;
   }
 
   /**
@@ -165,7 +163,7 @@ class Result {
  * A class representing Excpetions thrown by the Result class.
  */
 class ResultException extends Exception {
-  function __construct(string $message = null) {
+  function __construct($message = null) {
     parent::__construct('ResultException: ' . $message);
   }
 }

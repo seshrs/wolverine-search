@@ -18,6 +18,8 @@ echo "${red}${bold}Uninstalling...${normal}\n"
 
 echo "${bold}[1/4] Removing build files...${normal}"
 rm -r data
+rm -r search_refactor/__build__
+rm -r __util__
 echo "Done!\n"
 
 echo "${bold}[2/4] Removing tables in database...${normal}"

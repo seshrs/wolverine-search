@@ -1,7 +1,7 @@
 <?php
 
 final class Canvas implements ICommandController {
-  public function getCommandNames() {
+  public static function getCommandNames() {
     return [
       'canvas',
       'c',
@@ -21,9 +21,9 @@ final class Canvas implements ICommandController {
   private static $canvasMainURL = 'https://umich.instructure.com/';
   private static $canvasClassURL = 'https://umich.instructure.com/courses/';
 
-  public function executeQuery(string $query) {
+  public static function executeQuery($query) {
     if (!$query || !strlen($query)) {
-      return $this->defaultResult();
+      return self::defaultResult();
     }
     
     $query_terms = explode(' ', strtolower($query));
@@ -40,16 +40,16 @@ final class Canvas implements ICommandController {
       return self::defaultResult();
     }
     
-    if (!array_key_exists($department, self::CANVAS_CLASS_URLS)) {
+    if (!array_key_exists($department, self::$CANVAS_CLASS_URLS)) {
       return self::defaultResult();
     }
-    if (!array_key_exists($class, self::CANVAS_CLASS_URLS[$department])) {
+    if (!array_key_exists($class, self::$CANVAS_CLASS_URLS[$department])) {
       return self::defaultResult();
     }
     
     return (new Result())
       ->setURL(
-        $canvas_class_url . self::CANVAS_CLASS_URLS[$department][$class]
+        self::$canvasClassURL . self::$CANVAS_CLASS_URLS[$department][$class]
       );
   }
 
