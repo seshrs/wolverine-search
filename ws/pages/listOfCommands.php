@@ -3,7 +3,7 @@
 // GET paramenter:
 //   q ==> Filter query (optional)
 
-require('../sitevars.php');
+require('../__util__/Sitevars.php');
 require_once('../scripts/analytics.php');
 
 // Analytics
@@ -20,7 +20,7 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['LIST']);
     
     <!-- Other meta tags should go below this line -->
 
-    <title>List of Commands | <?php echo $_SITE['name']; ?></title>
+    <title>List of Commands | <?php echo Sitevars::SITE_NAME; ?></title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -125,8 +125,8 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['LIST']);
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     
-    <script type="text/javascript" src="<?php echo $_SITE['URL']; ?>/static/scripts/markdown/Markdown.Converter.js"></script>
-    <script type="text/javascript" src="<?php echo $_SITE['URL']; ?>/static/scripts/markdown/Markdown.Sanitizer.js"></script>
+    <script type="text/javascript" src="<?php echo Sitevars::DOMAIN_NAME; ?>/static/scripts/markdown/Markdown.Converter.js"></script>
+    <script type="text/javascript" src="<?php echo Sitevars::DOMAIN_NAME; ?>/static/scripts/markdown/Markdown.Sanitizer.js"></script>
     
     <script>
       var markdownConverter;
@@ -136,7 +136,7 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['LIST']);
       
       (function () {
         $('#back-button').on('click', function () {
-          window.location.href = '<?php echo $_SITE['URL']; ?>';
+          window.location.href = '<?php echo Sitevars::DOMAIN_NAME; ?>';
         });
         
         markdownConverter = Markdown.getSanitizingConverter();
@@ -153,13 +153,13 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['LIST']);
       })();
       
       function getDocumentation() {
-        $.get('<?php echo $_SITE['URL']; ?>/api/v1/documentation')
+        $.get('<?php echo Sitevars::DOMAIN_NAME; ?>/api/v1/documentation')
           .done(generateDocumentation)
           .fail(fetchDocumentationFailed);
       }
       
       function fetchDocumentationFailed() {
-        $failureElement = "<p>Whoops, something whent wrong. <a href='mailto:seshrs@umich.edu?subject=[<?php echo $_SITE['name']; ?>] Fetch Documentation Failed!'>Let me know that this happened.</a></p>";
+        $failureElement = "<p>Whoops, something whent wrong. <a href='mailto:seshrs@umich.edu?subject=[<?php echo Sitevars::DOMAIN_NAME; ?>] Fetch Documentation Failed!'>Let me know that this happened.</a></p>";
         $('#documentation').html($failureElement);
       }
       

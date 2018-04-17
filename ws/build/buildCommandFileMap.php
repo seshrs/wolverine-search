@@ -4,7 +4,6 @@
 
 echo "\nBuilding commandFileMap...\n";
 
-require_once(__DIR__ . '/../sitevars.php');
 require_once(__DIR__ . '/../search/helpers.php');
 require_once(__DIR__ . '/../search/registerCommands.php');
 

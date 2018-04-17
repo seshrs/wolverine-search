@@ -10,7 +10,7 @@
  * WARNING: Assumes that commandFileMap.json is in a good state
  */
 
-require_once(__DIR__ . '/../sitevars.php');
+require_once(__DIR__ . '/../__util__/Sitevars.php');
 
 $commandFileMapJSON = file_get_contents(__DIR__ . '/../data/commandFileMap.json');
 $commandFileMap = json_decode($commandFileMapJSON);
@@ -32,18 +32,18 @@ class Helpers_class {
   // EFFECTS : Returns a URL that would effectively queries $query on Wolverine Search.
   //           If $fallback is invalid or not specified, the site default will be used.
   public function executeCommandAsWolverineSearchQuery($query, $fallback = null) {
-    global $_SITE, $commandFileMap;
+    global $commandFileMap;
     if ( !$fallback || !strlen($fallback) || !property_exists($commandFileMap, $fallback) ) {
-      $fallback = $_SITE['fallback_command'];
+      $fallback = Sitevars::FALLBACK_COMMAND;
     }
-    return $_SITE['URL'] . '/search?q=' . $query . '&fallback=' . $fallback;
+    return Sitevars::DOMAIN_NAME . '/search?q=' . $query . '&fallback=' . $fallback;
   }
   
   
   // REQUIRES: $query(string)
   // EFFECTS : Calls the fallback command with $query and returns the resulting URL
   public function executeFallbackCommand($query) {
-    global $_SITE, $commandFileMap;
+    global $commandFileMap;
     $fallbackCommand = $this->getFallbackCommand();
     $this->logFallback($fallbackCommand);
     return $this->executeCommandWithQuery($fallbackCommand, $query);
@@ -52,7 +52,7 @@ class Helpers_class {
   // REQUIRES: $command (string), $query (string), $fallback (string, optional)
   // EFFECTS : Returns a URL that would effectively execute $query with $command.
   public function executeCommandWithQuery($command, $query, $fallback = null) {
-    global $_SITE, $_COMMANDS, $commandFileMap;
+    global $_COMMANDS, $commandFileMap;
     if ( !$fallback || !strlen($fallback) || !property_exists($commandFileMap, $fallback) ) {
       $fallback = $this->getFallbackCommand();
     }
@@ -66,10 +66,10 @@ class Helpers_class {
   }
   
   private function getFallbackCommand() {
-    global $_SITE, $commandFileMap;
-    $fallbackCommand = isset($_GET['fallback']) ? $_GET['fallback']: $_SITE['fallback_command'];
+    global $commandFileMap;
+    $fallbackCommand = isset($_GET['fallback']) ? $_GET['fallback']: Sitevars::FALLBACK_COMMAND;
     if ( !property_exists($commandFileMap, $fallbackCommand) ) {
-      $fallbackCommand = $_SITE['fallback_command'];
+      $fallbackCommand = Sitevars::FALLBACK_COMMAND;
     }
     return $fallbackCommand;
   }

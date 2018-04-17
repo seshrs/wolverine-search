@@ -1,7 +1,5 @@
 <?php
 
-require('../sitevars.php');
-
 $documentationContent = []; // Array<Array<markdown_content>>
 $documentationDirectories = [];
 //$coreDocumentationDirectory = "../search/commands/core/documentation";

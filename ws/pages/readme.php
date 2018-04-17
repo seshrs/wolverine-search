@@ -1,6 +1,6 @@
 <?php
 
-require('../sitevars.php');
+require('../__util__/Sitevars.php');
 require_once('../scripts/analytics.php');
 
 // Analytics
@@ -17,7 +17,7 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['ABOUT']);
     
     <!-- Other meta tags should go below this line -->
 
-    <title>Readme | <?php echo $_SITE['name']; ?></title>
+    <title>Readme | <?php echo Sitevars::SITE_NAME; ?></title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -32,7 +32,7 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['ABOUT']);
     <![endif]-->
     
     <!-- Open Search -->
-    <link rel="search" type="application/opensearchdescription+xml" title="<?php echo $_SITE['name']; ?>" href="<?php echo $_SITE['URL']; ?>/pages/openSearch.xml.php">
+    <link rel="search" type="application/opensearchdescription+xml" title="<?php echo Sitevars::SITE_NAME; ?>" href="<?php echo Sitevars::DOMAIN_NAME; ?>/pages/openSearch.xml.php">
     
     <style>
       #back-button-container {
@@ -154,13 +154,13 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['ABOUT']);
     <div class="container">
       <div class="row">
         <div class="col-xs-12">
-          <h1><?php echo $_SITE['name']; ?></h1>
+          <h1><?php echo Sitevars::SITE_NAME; ?></h1>
           <p class="lead">
             Jump to <a href="#setup">Setup</a>
           </p>
           
           <p>
-            <?php echo $_SITE['name']; ?> is like a command-line for your browser. You can quickly visit websites by typing keywords or executing smart queries.<br>
+            <?php echo Sitevars::SITE_NAME; ?> is like a command-line for your browser. You can quickly visit websites by typing keywords or executing smart queries.<br>
           </p>
           <p>
             For example, try some of these commands:
@@ -174,10 +174,10 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['ABOUT']);
             <a href="#" class="example-command featured">cg german hu</a>,
             <a href="#" class="example-command">mfile</a> or
             <a href="#" class="example-command featured">bing snake game</a>.
-            For the full documentation of commands, see <a href="<?php echo $_SITE['URL']; ?>/list">List of Commands</a>.
+            For the full documentation of commands, see <a href="<?php echo Sitevars::DOMAIN_NAME; ?>/list">List of Commands</a>.
           </p>
           <div class="row">
-            <form action="<?php echo $_SITE['URL']; ?>/search" method="GET">
+            <form action="<?php echo Sitevars::DOMAIN_NAME; ?>/search" method="GET">
               <div class="col-xs-8">
                 <input class="form-control" type="search" id="ws-search-bar" name="q" placeholder="Type a command, or click one of the examples above." />
               </div>
@@ -188,7 +188,7 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['ABOUT']);
           </div>
           <p>
             <br>
-            <?php echo $_SITE['name']; ?> was inspired by <a href="http://www.bunny1.org/">bunny1</a>, developed for use by Facebook employees.
+            <?php echo Sitevars::SITE_NAME; ?> was inspired by <a href="http://www.bunny1.org/">bunny1</a>, developed for use by Facebook employees.
           </p>
           
         </div>
@@ -198,7 +198,7 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['ABOUT']);
         <div class="col-xs-12">
           <h2>Setup</h2>
           <p>
-            <?php echo $_SITE['name']; ?> tries to make it quicker to visit websites. To make it even more efficient, follow the instructions to setup <?php echo $_SITE['name']; ?> in your browser. <a href="#" id="show-mobile-instructions-link">(Show Mobile Instructions instead.)</a><a href="#" id="show-desktop-instructions-link">(Show Desktop Instructions instead.)</a>
+            <?php echo Sitevars::SITE_NAME; ?> tries to make it quicker to visit websites. To make it even more efficient, follow the instructions to setup <?php echo Sitevars::SITE_NAME; ?> in your browser. <a href="#" id="show-mobile-instructions-link">(Show Mobile Instructions instead.)</a><a href="#" id="show-desktop-instructions-link">(Show Desktop Instructions instead.)</a>
           </p>
         </div>
       </div>
@@ -225,11 +225,11 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['ABOUT']);
                   <em>(Alternatively, paste this into the search bar: <code>chrome://settings/searchEngines</code>.)</em><br><br> 
                 </li>
                 <li class="chrome-find-search">
-                  Find <code><?php echo $_SITE['name']; ?></code> in the <code>Other search engines</code> section.<br>
+                  Find <code><?php echo Sitevars::SITE_NAME; ?></code> in the <code>Other search engines</code> section.<br>
                   <a href="#" id="chrome-manual-add">Can&apos;t find it?</a><br><br> 
                 </li>
                 <li class="chrome-find-search">
-                  Click the menu icon next to <?php echo $_SITE['name']; ?>, and click <code>Edit</code>. Change the <code>Keyword</code> to <kbd>w</kbd>. Click <code>Save</code>.<br>
+                  Click the menu icon next to <?php echo Sitevars::SITE_NAME; ?>, and click <code>Edit</code>. Change the <code>Keyword</code> to <kbd>w</kbd>. Click <code>Save</code>.<br>
                   <em>(You can change it to some other keyword if you like.)</em><br><br> 
                 </li>
                 <li class="chrome-find-search-failed hidden">Scroll to the bottom of the <code>Other search engines</code> section. Click the <code>Add</code> button.</li>
@@ -237,7 +237,7 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['ABOUT']);
                   <table>
                     <tr>
                       <td class="align-right" width="15%"><strong>Search Engine: </strong></td>
-                      <td><input type="text" value="<?php echo $_SITE['name']; ?>" class="clipboard-inputs form-control" readonly /></td>
+                      <td><input type="text" value="<?php echo Sitevars::SITE_NAME; ?>" class="clipboard-inputs form-control" readonly /></td>
                     </tr>
                     <tr>
                       <td class="align-right" width="15%"><strong>Keyword: </strong></td>
@@ -250,12 +250,12 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['ABOUT']);
                   </table>
                 </li>
                 <li class="chrome-find-search-failed hidden">Click <code>Add</code>.<br><br> </li>
-                <li>Now, you can use <?php echo $_SITE['name']; ?> from your search bar by prefixing each command with <kbd>w</kbd>. For example, try typing <kbd>w list</kbd> in the search bar.<br></li>
+                <li>Now, you can use <?php echo Sitevars::SITE_NAME; ?> from your search bar by prefixing each command with <kbd>w</kbd>. For example, try typing <kbd>w list</kbd> in the search bar.<br></li>
               </ol>
               <p>
                 <strong><em>Optional:</em></strong><br>
-                Find <code><?php echo $_SITE['name']; ?></code> from the list of search engines, click the menu button next to it and click the <code>Make Default</code> option to make <?php echo $_SITE['name']; ?> your default search engine.<br>
-                <?php echo $_SITE['name']; ?> automatically falls back to Google, so you can continue to use the search bar as you used to.
+                Find <code><?php echo Sitevars::SITE_NAME; ?></code> from the list of search engines, click the menu button next to it and click the <code>Make Default</code> option to make <?php echo Sitevars::SITE_NAME; ?> your default search engine.<br>
+                <?php echo Sitevars::SITE_NAME; ?> automatically falls back to Google, so you can continue to use the search bar as you used to.
               </p>
             </div>
           </div>
@@ -265,19 +265,19 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['ABOUT']);
             <div class="panel-body">
               <ol>
                 <li>
-                  Click the button to install <?php echo $_SITE['name']; ?> in your browser. <a id="firefox-add" class="btn btn-default btn-sm" href="#">Install <?php echo $_SITE['name']; ?></a><br> 
-                  <em>(Alternatively, click the search icon with the plus symbol in the search bar. Then click <code>Add "<?php echo $_SITE['name']; ?>"</code>.)</em><br><br> 
+                  Click the button to install <?php echo Sitevars::SITE_NAME; ?> in your browser. <a id="firefox-add" class="btn btn-default btn-sm" href="#">Install <?php echo Sitevars::SITE_NAME; ?></a><br> 
+                  <em>(Alternatively, click the search icon with the plus symbol in the search bar. Then click <code>Add "<?php echo Sitevars::SITE_NAME; ?>"</code>.)</em><br><br> 
                 </li>
                 <li>
                   Click the menu icon to the right of the sidebar and choose <code>Preferences</code>. On the left, click <code>Search</code>.<br> 
                   <em>(Alternatively, enter <code>about:preferences#search</code> in a new tab.)</em><br><br> 
                 </li>
                 <li>
-                  Select <code><?php echo $_SITE['name']; ?></code> in the table. Double-click the row under the <code>Keyword</code> column. Enter the keyword <kbd>w</kbd>.<br> 
+                  Select <code><?php echo Sitevars::SITE_NAME; ?></code> in the table. Double-click the row under the <code>Keyword</code> column. Enter the keyword <kbd>w</kbd>.<br> 
                   (<em>You can change this to some other keyword, if you like.)</em><br><br> 
                 </li>
                 <li>
-                  Now, you can use <?php echo $_SITE['name']; ?> from your URL bar by prefixing each command with <kbd>w</kbd>. For example, try typing <kbd>w list</kbd> in the URL bar.<br> 
+                  Now, you can use <?php echo Sitevars::SITE_NAME; ?> from your URL bar by prefixing each command with <kbd>w</kbd>. For example, try typing <kbd>w list</kbd> in the URL bar.<br> 
                 </li>
               </ol>
             </div>
@@ -286,7 +286,7 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['ABOUT']);
           <!-- Safari -->
           <div role="tabpanel" class="tab-pane panel panel-default" id="safari">
             <div class="panel-body">
-              Drag this bookmarklet <a id="safari-bookmarklet" class="btn btn-default btn-sm" href="#"><?php echo $_SITE['name']; ?></a> to your bookmarks bar.<br>
+              Drag this bookmarklet <a id="safari-bookmarklet" class="btn btn-default btn-sm" href="#"><?php echo Sitevars::SITE_NAME; ?></a> to your bookmarks bar.<br>
               Now, click the bookmarklet, and in the box that pops up, type <code>list</code> or <code>wa student</code> and hit enter.<br><br>
               
               <strong><em>Optional:</em></strong>
@@ -295,7 +295,7 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['ABOUT']);
                   You could make the bookmarklet the leftmost bookmark in your bookmarks bar, and then use the keyboard shortcut <kbd><span id="mac-chars">&#8997;&#8984;</span>1</kbd> to get to it.
                 </li>
                 <li>
-                  Safari supports the search bar behavior of Chrome and Firefox to some extent. You need to begin typing the entire URL of this site (<code><?php echo $_SITE['URL']; ?></code>), followed by your query.
+                  Safari supports the search bar behavior of Chrome and Firefox to some extent. You need to begin typing the entire URL of this site (<code><?php echo Sitevars::DOMAIN_NAME; ?></code>), followed by your query.
                 </li>
               </ul>
             </div>
@@ -328,7 +328,7 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['ABOUT']);
                   <table>
                     <tr>
                       <td class="align-right" width="15%"><strong>Name: </strong></td>
-                      <td><input type="text" value="<?php echo $_SITE['name']; ?>" class="clipboard-inputs form-control" readonly /></td>
+                      <td><input type="text" value="<?php echo Sitevars::SITE_NAME; ?>" class="clipboard-inputs form-control" readonly /></td>
                     </tr>
                     <tr>
                       <td class="align-right" width="15%"><strong>Keyword: </strong></td>
@@ -341,7 +341,7 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['ABOUT']);
                   </table>
                 </li>
                 <li>Click <code>Save</code>, then click <code>Done</code>.<br><br> </li>
-                <li>Now, you can use <?php echo $_SITE['name']; ?> from your search bar by prefixing each command with <kbd>ws</kbd>. For example, try typing <kbd>ws list</kbd> in the search bar.<br></li>
+                <li>Now, you can use <?php echo Sitevars::SITE_NAME; ?> from your search bar by prefixing each command with <kbd>ws</kbd>. For example, try typing <kbd>ws list</kbd> in the search bar.<br></li>
               </ol>
               <p>
                 <strong><em>Optional:</em></strong><br>
@@ -355,7 +355,7 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['ABOUT']);
           <div class="panel panel-default">
             <div class="panel-body">
               <h4>Fallback Command</h4>
-              <p>By default, <?php echo $_SITE['name']; ?> falls back to performing a Google Search if the query does not begin with a valid command. However, you can change this behavior. For instance, making the fallback command <kbd>bing</kbd> will make <?php echo $_SITE['name']; ?> perform a Bing Search if the query does not begin with a valid command.</p>
+              <p>By default, <?php echo Sitevars::SITE_NAME; ?> falls back to performing a Google Search if the query does not begin with a valid command. However, you can change this behavior. For instance, making the fallback command <kbd>bing</kbd> will make <?php echo Sitevars::SITE_NAME; ?> perform a Bing Search if the query does not begin with a valid command.</p>
               <p>Choose the fallback command you wish to use here. Then scroll up and follow the instructions in the <code>Setup</code> section.</p>
               <select id="fallback-select" class="form-control">
                 <option value="g" selected>Google (g)</option>
@@ -372,7 +372,7 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['ABOUT']);
             <div class="panel-body">
               <h4>Default Command</h4>
               <p class="alert alert-warning">Not to be confused with Fallback Commands above.</p>
-              <p>Some commands are capable of being used as a default command. For instance, if you choose to use <kbd>eecs280</kbd> as your default command, then you can simply use the command <kbd>calendar</kbd> instead of specifying the entire command <kbd>eecs280 calendar</kbd>. If the default command cannot parse your query, it will fall back to <?php echo $_SITE['name']; ?>, which in turn falls back to the specified fallback command. <em>(Read above for more information on <code>Fallback Commands</code>.)</em></p>
+              <p>Some commands are capable of being used as a default command. For instance, if you choose to use <kbd>eecs280</kbd> as your default command, then you can simply use the command <kbd>calendar</kbd> instead of specifying the entire command <kbd>eecs280 calendar</kbd>. If the default command cannot parse your query, it will fall back to <?php echo Sitevars::SITE_NAME; ?>, which in turn falls back to the specified fallback command. <em>(Read above for more information on <code>Fallback Commands</code>.)</em></p>
               <p>Choose from the available default commands. Then scroll up and follow the instructions in the <code>Setup</code> section.</p>
               <select id="default-command-select" class="form-control">
                 <option value="" selected>None</option>
@@ -413,7 +413,7 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['ABOUT']);
       
       (function () {
         $('#back-button').on('click', function () {
-          window.location.href = '<?php echo $_SITE['URL']; ?>';
+          window.location.href = '<?php echo Sitevars::DOMAIN_NAME; ?>';
         });
         
         $('[data-toggle="tooltip"]').tooltip();
@@ -566,7 +566,7 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['ABOUT']);
         if (fallback === 'g') {
           fallbackStr = '';
         }
-        var chromeURL = "<?php echo $_SITE['URL']; ?>/search?" + fallbackStr + "q=" + defaultCommand + "%s";
+        var chromeURL = "<?php echo Sitevars::DOMAIN_NAME; ?>/search?" + fallbackStr + "q=" + defaultCommand + "%s";
         $('#chrome-url').prop('value', chromeURL);
       }
     </script>
@@ -582,7 +582,7 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['ABOUT']);
       })();
       
       function firefox_install() {
-        var xmlURL = "<?php echo $_SITE['URL']; ?>/pages/openSearch.xml.php?fallback=" + fallback + "&defaultCommand=" + defaultCommand;
+        var xmlURL = "<?php echo Sitevars::DOMAIN_NAME; ?>/pages/openSearch.xml.php?fallback=" + fallback + "&defaultCommand=" + defaultCommand;
         window.external.AddSearchProvider(xmlURL);
       }
     </script>
@@ -599,7 +599,7 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['ABOUT']);
       
       function safari_updateBookmarklet() {
         var defaultText = defaultCommand;
-        var bookmarkletCode = "javascript:ws_url='<?php echo $_SITE['URL']; ?>/search?fallback=" + fallback + "&q=" + defaultCommand + "';cmd=prompt('<?php echo $_SITE['name']; ?>: Type \"help\" to get help or \"list\" to see commands you can use.','" + defaultText + "');if(cmd){window.location=ws_url+escape(cmd);}else{void(0);}";
+        var bookmarkletCode = "javascript:ws_url='<?php echo Sitevars::DOMAIN_NAME; ?>/search?fallback=" + fallback + "&q=" + defaultCommand + "';cmd=prompt('<?php echo Sitevars::SITE_NAME; ?>: Type \"help\" to get help or \"list\" to see commands you can use.','" + defaultText + "');if(cmd){window.location=ws_url+escape(cmd);}else{void(0);}";
         $('#safari-bookmarklet').prop('href', bookmarkletCode);
       }
     </script>
@@ -615,7 +615,7 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['ABOUT']);
         if (fallback === 'g') {
           fallbackStr = '';
         }
-        var operaURL = "<?php echo $_SITE['URL']; ?>/search?" + fallbackStr + "q=" + defaultCommand + "%s";
+        var operaURL = "<?php echo Sitevars::DOMAIN_NAME; ?>/search?" + fallbackStr + "q=" + defaultCommand + "%s";
         $('#opera-url').prop('value', operaURL);
       }
     </script>

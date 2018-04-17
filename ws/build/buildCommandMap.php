@@ -8,7 +8,6 @@ final class BuildCommandMap {
   public static function execute() {
     echo "\nBuilding commandMap.json...\n";
 
-    require_once(__DIR__ . '/../sitevars.php');
     require_once(__DIR__ . '/../search_refactor/__definitions__/ICommandController.php');
     require_once(__DIR__ . '/../search_refactor/__definitions__/Result.php');
 

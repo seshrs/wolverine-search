@@ -41,8 +41,7 @@ done
 
 echo "${bold}[1/4] Creating sitevars.php...${normal}"
 mkdir __util__
-if php build/create_sitevars.php $domain "$name" $fallback_command >sitevars.php; then
-  php build/create_sitevars_v2.php $domain "$name" $fallback_command >__util__/Sitevars.php
+if php build/create_sitevars.php $domain "$name" $fallback_command >__util__/Sitevars.php; then
   echo "Done!\n"
 else
   echo "${bold}${red}Could not create sitevars.php. Aborting...${normal}\n"
@@ -64,8 +63,9 @@ echo "Done!\n"
 
 echo "${bold}[4/4] Building commands...${normal}"
 mkdir data
-mkdir search_refactor/__build__
 make build
+mkdir search_refactor/__build__
+make build_refactor
 
 echo ""
 echo "${magenta}Initialization Complete! Visit ${bold}"$domain"${normal}${magenta} on your browser now :)\n${normal}"
