@@ -47,14 +47,14 @@ final class Canvas implements ICommandController {
       return self::defaultResult();
     }
     
-    return (new Result())
+    return (new Result)
       ->setURL(
         self::$canvasClassURL . self::$CANVAS_CLASS_URLS[$department][$class]
       );
   }
 
   private static function defaultResult() {
-    return (new Result())
+    return (new Result)
       ->setURL(self::$canvasMainURL);
   }
 }

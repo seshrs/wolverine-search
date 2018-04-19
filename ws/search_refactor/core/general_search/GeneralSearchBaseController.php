@@ -24,11 +24,11 @@ class GeneralSearchBaseController {
 
   public static function executeQuery($query) {
     if (!$query || !strlen($query)) {
-      return (new Result())
+      return (new Result)
         ->setURL(static::getMainURL());
     }
     
-    return (new Result())
+    return (new Result)
       ->setURL(static::getSearchURL() . $query);
   }
 }
