@@ -79,6 +79,7 @@ class Result {
     if ($this->command === null) {
       $this->command = self::FALLBACK_COMMAND;
     }
+    return $this;
   }
 
   /**

@@ -1,6 +1,15 @@
 <?php
 
 final class CourseGuide implements ICommandController {
+  public static function getCommandNames() {
+    return [
+      'cg',
+      'courseguide',
+      'course-guide',
+      'course_guide',
+    ];
+  }
+
   private static $SEASON_METADATA = [
     CourseGuideSeasons::WINTER => [
       'season_code' => 'w',
@@ -35,14 +44,16 @@ final class CourseGuide implements ICommandController {
     $query_terms = array_diff(explode(' ', strtolower($query)), ['']);
 
     $final_search_url = 
-      $cgSearchURL . implode(
+      self::$cgSearchURL . implode(
         '&',
-        [
+        array_filter([
           self::getTermFragment($query_terms),
           self::getNumResultsFragment($query_terms),
           self::getDistributionRequirementsFragment($query_terms),
           self::getCourse($query_terms),
-        ]
+        ], function ($element) {
+          return $element && $element !== '';
+        })
       );
     return (new Result)
       ->setURL($final_search_url);
@@ -106,7 +117,7 @@ final class CourseGuide implements ICommandController {
       return self::getCurrentTermFragment();
     }
 
-    $possible_year = $season_term_index < count($query_terms) 
+    $possible_year = $season_term_index < count($query_terms) - 1 
       ? $query_terms[$season_term_index + 1]
       : null;
     $is_possible_year_viable = false;
