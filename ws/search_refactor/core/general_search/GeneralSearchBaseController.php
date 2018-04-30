@@ -23,6 +23,7 @@ class GeneralSearchBaseController {
   }
 
   public static function executeQuery($query) {
+    $query = urlencode($query);
     if (!$query || !strlen($query)) {
       return (new Result)
         ->setURL(static::getMainURL());

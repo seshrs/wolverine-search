@@ -5,6 +5,9 @@
  * Last Modified: 2018-03-25
  */
 
+require_once(__DIR__ . '/../../__util__/Sitevars.php');
+require_once(__DIR__ . '/../__definitions__/ICommandController.php');
+
 class SearchController {
   /**
    * This is the entry point for the search controller. It parses the request
@@ -17,6 +20,12 @@ class SearchController {
   public static function search($custom_request = null, $request_trace = []) {
     $command_map = self::fetchCommandMap();
     $request = self::parseRequest($command_map, $custom_request, $request_trace);
+    // Check if the command is ws (to minimize request cycles)
+    if ($request['command'] === 'ws') {
+      array_push($request_trace, $request);
+      return self::search($request['query'], $request_trace);
+    }
+    // Otherwise, call the executor
     $result = $request['command_executor']($request['query']);
     if ($result->isResultUnresolved()) {
       // Redirect to main site
@@ -49,8 +58,6 @@ class SearchController {
   }
 
   private static function parseRequest($command_map, $custom_request = null, &$request_trace = []) {
-    require_once(__DIR__ . '/../../__util__/Sitevars.php');
-
     if ($custom_request && strlen($custom_request)) {
       // 1.1 If a custom request has been provided, validate and use it.
       $raw_query = $custom_request;
@@ -71,6 +78,17 @@ class SearchController {
     $command = array_shift($query_terms);
     $query = implode(' ', $query_terms);
 
+    // 2.1. Check if custom query requesting original query
+    if ($query === Result::ORIGINAL_QUERY) {
+      // Find request 0 and use its raw query
+      for ($i = 0; $i < count($request_trace); $i++) {
+        if ($request_trace[$i]['request_trace_id'] === 0) {
+          $raw_query = $query = $request_trace[$i]['raw_query'];
+          break;
+        }
+      }
+    }
+
     // 3. Retrieve the fallback command
     $fallback_command = isset($_GET['fallback']) ? $_GET['fallback'] : null;
     if (!$fallback_command || !property_exists($command_map, $fallback_command)) {
@@ -85,9 +103,14 @@ class SearchController {
       $fallback_used = true;
     }
 
+    // 4.1. Also check if custom request requires fallback command.
+    if ($command === Result::FALLBACK_COMMAND) {
+      $command = $fallback_command;
+      $fallback_used = true;
+    }
+
     // 5. Retrieve the command's executeQuery function
     $command_controller_filepath = $command_map->{$command};
-    require_once(__DIR__ . '/../__definitions__/ICommandController.php');
     require_once($command_controller_filepath);
     $command_controller_name = basename($command_controller_filepath, '.command.php');
     $command_executor = [$command_controller_name, 'executeQuery'];

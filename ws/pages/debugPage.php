@@ -72,13 +72,13 @@ if (!$defaultCommand || !strlen($defaultCommand)) {
       }
       
       .push {
-        height: 50px;
+        height: 80px;
       }
       
       .footer-container {
         width: 100%;
-        position: absolute;
-        bottom: 0;
+        /* position: absolute;
+        bottom: 0; */
       }
       .footer {
         height: 50px;

@@ -6,7 +6,7 @@
   * Read the GitHub Documentation for more information.
   */
 
-final class Canvas implements ICommandController {
+final class EECS280 implements ICommandController {
   public static function getCommandNames() {
     return [
       'eecs280',
@@ -19,7 +19,7 @@ final class Canvas implements ICommandController {
     }
     
     $query_terms = explode(' ', strtolower($query));
-    if (count($query_terms === 0)) {
+    if (count($query_terms) === 0) {
       return self::defaultResult();
     }
 
@@ -106,6 +106,7 @@ final class Canvas implements ICommandController {
     }
 
     return (new Result)
+      ->setCommand('ws')
       ->setQuery(Result::ORIGINAL_QUERY);
   }
 
