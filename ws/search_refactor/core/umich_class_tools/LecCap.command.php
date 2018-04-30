@@ -4,6 +4,11 @@ final class LecCap implements ICommandController {
   public static function getCommandNames() {
     return [
       'leccap',
+      'lecture',
+      'lecture-recordings',
+      'lecture-recording',
+      'lecture_recordings',
+      'lecture_recording',
     ];
   }
 

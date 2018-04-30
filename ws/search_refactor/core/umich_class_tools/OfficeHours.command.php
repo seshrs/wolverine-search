@@ -4,6 +4,7 @@ final class OfficeHours implements ICommandController {
   public static function getCommandNames() {
     return [
       'oh',
+      'office',
       'office-hours',
       'office_hours',
     ];

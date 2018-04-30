@@ -4,6 +4,7 @@ final class WolverineAccessStudentBusiness implements ICommandController {
   public static function getCommandNames() {
     return [
       'sb',
+      'student'
     ];
   }
 

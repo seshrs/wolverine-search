@@ -4,6 +4,7 @@ final class WolverineAccessEmployeeBusiness implements ICommandController {
   public static function getCommandNames() {
     return [
       'eb',
+      'employee',
     ];
   }
 
