@@ -17,8 +17,8 @@ done
 echo "${red}${bold}Uninstalling...${normal}\n"
 
 echo "${bold}[1/4] Removing build artifacts...${normal}"
-rm -r data
-rm -r search_refactor/__build__
+# rm -r data
+rm -r search/__build__
 echo "Done!\n"
 
 echo "${bold}[2/4] Removing tables in database...${normal}"

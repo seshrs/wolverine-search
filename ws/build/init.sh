@@ -62,10 +62,8 @@ mysql <build/create_ws_tables.sql
 echo "Done!\n"
 
 echo "${bold}[4/4] Building commands...${normal}"
-mkdir data
+mkdir search/__build__
 make build
-mkdir search_refactor/__build__
-make build_refactor
 
 echo ""
 echo "${magenta}Initialization Complete! Visit ${bold}"$domain"${normal}${magenta} on your browser now :)\n${normal}"

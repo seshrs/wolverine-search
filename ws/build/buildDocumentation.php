@@ -35,16 +35,16 @@ $documentationContent = [];
 
 $documentationDirectories = [];
 $blacklisted_directories = [
-  __DIR__ . "/../search_refactor/__build__",
-  __DIR__ . "/../search_refactor/__definitions__",
-  __DIR__ . "/../search_refactor/__search__",
+  __DIR__ . "/../search/__build__",
+  __DIR__ . "/../search/__definitions__",
+  __DIR__ . "/../search/__search__",
 ];
 
-$output_path = __DIR__ . '/../search_refactor/__build__/documentation_content.json';
+$output_path = __DIR__ . '/../search/__build__/documentation_content.json';
 
 // Find all documentation files
 $itemsQueue = new SplQueue();
-$itemsQueue->enqueue(__DIR__ . "/../search_refactor");
+$itemsQueue->enqueue(__DIR__ . "/../search");
 while (!$itemsQueue->isEmpty()) {
 	$item = $itemsQueue->dequeue();
 	if (is_dir($item)) {

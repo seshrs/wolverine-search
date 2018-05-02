@@ -8,12 +8,12 @@ final class BuildCommandMap {
   public static function execute() {
     echo "\nBuilding commandMap.json...\n";
 
-    require_once(__DIR__ . '/../search_refactor/__definitions__/ICommandController.php');
-    require_once(__DIR__ . '/../search_refactor/__definitions__/Result.php');
+    require_once(__DIR__ . '/../search/__definitions__/ICommandController.php');
+    require_once(__DIR__ . '/../search/__definitions__/Result.php');
 
     self::$commandMap = [];
-    $outputFile = __DIR__ . '/../search_refactor/__build__/commandMap.json';
-    $commandsDirectory = __DIR__ . '/../search_refactor';
+    $outputFile = __DIR__ . '/../search/__build__/commandMap.json';
+    $commandsDirectory = __DIR__ . '/../search';
 
     // Include all controller files
     $itemsQueue = new SplQueue();
