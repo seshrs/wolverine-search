@@ -2,4 +2,4 @@
 *Usage:* `g  [query]`
 *Aliases:* `google`
 
-If `query` is empty, will redirect to Bing's home page.
+If `query` is empty, will redirect to Google's home page.

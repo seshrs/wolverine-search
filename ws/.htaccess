@@ -18,7 +18,7 @@ RewriteRule ^(.*)$ /pages/readme.php [L]
 # Request URI is /list
 RewriteCond %{REQUEST_URI} ^/list$ [OR]
 RewriteCond %{REQUEST_URI} ^/list/$
-RewriteRule ^(.*)$ /pages/listOfCommands.php [L]
+RewriteRule ^(.*)$ /pages/listOfCommands_refactored.php [L]
 
 # Request URI is /api/v1/documentation
 RewriteCond %{REQUEST_URI} ^/api/v1/documentation$ [OR]
