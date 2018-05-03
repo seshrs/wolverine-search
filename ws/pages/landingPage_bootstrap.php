@@ -10,15 +10,15 @@
 //   will be printed instead of actually redirecting the browser.
 //
 
-require('../sitevars.php');
-require_once('../scripts/analytics.php');
+require_once(__DIR__ . '/../__util__/Sitevars.php');
+require_once(__DIR__ . '/../scripts/Analytics.php');
 
 // Analytics
-Analytics::runAnalytics(Analytics::$USER_ACTION['LANDING']);
+Analytics::createDeviceIDIfNeeded();
 
 $fallback = isset($_REQUEST['fallback']) ? $_REQUEST['fallback'] : null;
 if (!$fallback || !strlen($fallback)) {
-  $fallback = 'g';
+  $fallback = Sitevars::FALLBACK_COMMAND;
 }
 
 $defaultCommand = isset($_REQUEST['defaultCommand']) ? $_REQUEST['defaultCommand'] : null;
@@ -42,7 +42,7 @@ if ($debug !== '1') {
     
     <!-- Other meta tags should go below this line -->
 
-    <title><?php echo $_SITE['name']; ?></title>
+    <title><?php echo Sitevars::SITE_NAME; ?></title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -57,7 +57,7 @@ if ($debug !== '1') {
     <![endif]-->
 
     <!-- Open Search -->
-    <link rel="search" type="application/opensearchdescription+xml" title="<?php echo $_SITE['name']; ?>" href="<?php echo $_SITE['URL']; ?>/pages/openSearch.xml.php?fallback=<?php echo $fallback; ?>&defaultCommand=<?php echo $defaultCommand; ?>">
+    <link rel="search" type="application/opensearchdescription+xml" title="<?php echo Sitevars::SITE_NAME; ?>" href="<?php echo Sitevars::DOMAIN_NAME; ?>/pages/openSearch.xml.php?fallback=<?php echo $fallback; ?>&defaultCommand=<?php echo $defaultCommand; ?>">
     
     <style>
       html, body {
@@ -114,7 +114,7 @@ if ($debug !== '1') {
 
       <div class="row vertical-center-row text-center">
         <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-          <h1><?php echo $_SITE['name']; ?></h1>
+          <h1><?php echo Sitevars::SITE_NAME; ?></h1>
           <form action="./search" method="GET">
             <div class="row">
               <div class="col-xs-12 col-sm-12">
@@ -135,10 +135,10 @@ if ($debug !== '1') {
           </form>
         </div>
         <div class="col-xs-12">
-          <h3>First time here? <a href="<?php echo $_SITE['URL']; ?>/about">Read this.</a></h3>
+          <h3>First time here? <a href="<?php echo Sitevars::DOMAIN_NAME; ?>/about">Read this.</a></h3>
         </div>
         <div class="col-xs-12">
-          <p>You can find a full list of supported commands <a href="<?php echo $_SITE['URL']; ?>/list">here</a>.</p>
+          <p>You can find a full list of supported commands <a href="<?php echo Sitevars::DOMAIN_NAME; ?>/list">here</a>.</p>
         </div>
         <div class="col-xs-12 push"></div>
       </div>
@@ -168,3 +168,9 @@ if ($debug !== '1') {
     </script>
   </body>
 </html>
+
+<?php
+
+Analytics::endConnectionAndLogUserActivity(Analytics::LANDING_PAGE_HIT);
+
+?>

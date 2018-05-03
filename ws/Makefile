@@ -7,8 +7,13 @@ init:
 install: init
 
 build: FORCE
-	@touch data/commandFileMap.json
-	@php build/buildCommandFileMap.php
+	@touch search/__build__/commandMap.json
+	@php build/buildCommandMap.php
+	@touch search/__build__/documentation_content.json
+	@php build/buildDocumentation.php
+
+resetAnalytics: FORCE
+	@php scripts/resetLogs.php
 
 uninstall: FORCE
 	@sh build/uninstall.sh

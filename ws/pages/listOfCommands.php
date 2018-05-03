@@ -3,11 +3,10 @@
 // GET paramenter:
 //   q ==> Filter query (optional)
 
-require('../sitevars.php');
-require_once('../scripts/analytics.php');
+require_once(__DIR__ . '/../__util__/Sitevars.php');
+require_once(__DIR__ . '/../scripts/Analytics.php');
 
-// Analytics
-Analytics::runAnalytics(Analytics::$USER_ACTION['LIST']);
+Analytics::createDeviceIDIfNeeded();
 
 ?>
 
@@ -20,7 +19,7 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['LIST']);
     
     <!-- Other meta tags should go below this line -->
 
-    <title>List of Commands | <?php echo $_SITE['name']; ?></title>
+    <title>List of Commands | <?php echo Sitevars::SITE_NAME; ?></title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -125,8 +124,8 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['LIST']);
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     
-    <script type="text/javascript" src="<?php echo $_SITE['URL']; ?>/static/scripts/markdown/Markdown.Converter.js"></script>
-    <script type="text/javascript" src="<?php echo $_SITE['URL']; ?>/static/scripts/markdown/Markdown.Sanitizer.js"></script>
+    <script type="text/javascript" src="<?php echo Sitevars::DOMAIN_NAME; ?>/static/scripts/markdown/Markdown.Converter.js"></script>
+    <script type="text/javascript" src="<?php echo Sitevars::DOMAIN_NAME; ?>/static/scripts/markdown/Markdown.Sanitizer.js"></script>
     
     <script>
       var markdownConverter;
@@ -136,7 +135,7 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['LIST']);
       
       (function () {
         $('#back-button').on('click', function () {
-          window.location.href = '<?php echo $_SITE['URL']; ?>';
+          window.location.href = '<?php echo Sitevars::DOMAIN_NAME; ?>';
         });
         
         markdownConverter = Markdown.getSanitizingConverter();
@@ -153,46 +152,42 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['LIST']);
       })();
       
       function getDocumentation() {
-        $.get('<?php echo $_SITE['URL']; ?>/api/v1/documentation')
+        $.get('<?php echo Sitevars::DOMAIN_NAME; ?>/api/v1/documentation')
           .done(generateDocumentation)
           .fail(fetchDocumentationFailed);
       }
       
       function fetchDocumentationFailed() {
-        $failureElement = "<p>Whoops, something whent wrong. <a href='mailto:seshrs@umich.edu?subject=[<?php echo $_SITE['name']; ?>] Fetch Documentation Failed!'>Let me know that this happened.</a></p>";
+        $failureElement = "<p>Whoops, something whent wrong. <a href='mailto:seshrs@umich.edu?subject=[<?php echo Sitevars::DOMAIN_NAME; ?>] Fetch Documentation Failed!'>Let me know that this happened.</a></p>";
         $('#documentation').html($failureElement);
       }
       
       function generateDocumentation(documentation_json) {
         resetDocumentation();
         
-        var documentationSectionsMarkdownObject = JSON.parse(documentation_json);
-        documentationSectionsMarkdown = [];
-        for (var key in documentationSectionsMarkdownObject) {
-          documentationSectionsMarkdown.push( documentationSectionsMarkdownObject[key] );
-        }
-        var documentationPanels = [];
-        // First start with core documentation
-        documentationPanels.push( generateDocumentationPanel(documentation.core) );
-        documentation.core = [];
-        var i = 0;
-        for (documentationSectionIndex in documentationSectionsMarkdown) {
-          var documentationSection = documentationSectionsMarkdown[documentationSectionIndex];
-          if (!documentationSection.length) {
-            ++i;
-            continue;
-          }
+        documentationSectionsMarkdown = documentation_json;
+        var documentationSectionsArray = [];
+        
+        for (var i = 0; i < documentationSectionsMarkdown.length; ++i) {
           var documentationPanelsInSection = [];
-          for (documentationMarkdownIndex in documentationSection) {
-            var panelID = getPanelID(i, documentationMarkdownIndex);
-            var documentationMarkdown = documentationSection[documentationMarkdownIndex];
-            documentationPanelsInSection.push( generateDocumentationPanel(documentationMarkdown, panelID) );
+          var documentationSection = documentationSectionsMarkdown[i];
+          if (documentationSection.meta_md) {
+            documentationPanelsInSection.push(
+              getSectionMetaElement(documentationSection.meta_md, i)
+            );
           }
-          documentationPanels.push(documentationPanelsInSection);
-          ++i;
+          for (var j = 0; j < documentationSection.markdown_content.length; ++j) {
+            var panelID = getPanelID(i, j);
+            var panel = generateDocumentationPanel(
+              documentationSection.markdown_content[j],
+              panelID,
+            );
+            documentationPanelsInSection.push(panel);
+          }
+          documentationSectionsArray.push(documentationPanelsInSection)
         }
         
-        displayDocumentation(documentationPanels);
+        displayDocumentation(documentationSectionsArray);
         checkIfRequestWasInURL();
       }
       
@@ -206,6 +201,13 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['LIST']);
       
       function getSectionID(sectionIndex) {
         return 'section_' + sectionIndex;
+      }
+
+      function getSectionMetaElement(meta_md, section_index) {
+        var $html = $(markdownConverter.makeHtml(meta_md));
+        var $el = $('<div/>').append($html);
+        $el.attr(getSectionID(section_index) + '_meta');
+        return $el;
       }
       
       function generateDocumentationPanel(documentationMarkdown, panelID) {
@@ -228,25 +230,20 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['LIST']);
         return $panelContainer.append($panelHeader, $panelBody);
       }
       
-      function displayDocumentation(documentationPanels) {
-        $parentDocumentationDiv = $('#documentation');
-        $listGroup = $('<ul/>').addClass('list-group');
-        var i = 0;
-        for (documentationSectionIndex in documentationPanels) {
-          var documentationSection = documentationPanels[documentationSectionIndex];
-          if (!documentationSection || documentationSection.length === 0) {
-            continue;
-          }
+      function displayDocumentation(documentationSections) {
+        var $parentDocumentationDiv = $('#documentation');
+        for (var i = 0; i < documentationSections.length; ++i) {
+          var documentationSection = documentationSections[i];
           var sectionID = getSectionID(i);
-          $listItem = $('<li/>').addClass('list-group-item').attr('id', sectionID);
+          var $listGroup = $('<ul/>').addClass('list-group');
+          var $listItem = $('<li/>').addClass('list-group-item').attr('id', sectionID);
           for (panelIndex in documentationSection) {
             var panel = documentationSection[panelIndex];
             $listItem.append(panel);
           }
           $listGroup.append($listItem);
-          ++i;
+          $parentDocumentationDiv.append($listGroup);
         }
-        $parentDocumentationDiv.append($listGroup);
         $('#filter-container').removeClass('hidden');
       }
       
@@ -334,11 +331,17 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['LIST']);
       
       function getPanelDisplayMap(filterText) {
         var newPanelDisplayMap = [];
-        var pattern = new RegExp(escapeRegExp(filterText), 'i');
+        var pattern;
+        // if (!filterText || filterText === '') {
+        //   pattern = /(.*)/i;
+        // }
+        // else {
+          pattern = new RegExp(escapeRegExp(filterText), 'i');
+        // }
         for (var sectionIndex = 0; sectionIndex < documentationSectionsMarkdown.length; ++sectionIndex) {
           var displayMapRow = [];
-          for (var documentationIndex = 0; documentationIndex < documentationSectionsMarkdown[sectionIndex].length; ++documentationIndex) {
-            var markdown = documentationSectionsMarkdown[sectionIndex][documentationIndex];
+          for (var documentationIndex = 0; documentationIndex < documentationSectionsMarkdown[sectionIndex].markdown_content.length; ++documentationIndex) {
+            var markdown = documentationSectionsMarkdown[sectionIndex].markdown_content[documentationIndex];
             displayMapRow.push(markdown.search(pattern) !== -1);
           }
           newPanelDisplayMap.push(displayMapRow);
@@ -361,3 +364,9 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['LIST']);
     
   </body>
 </html>
+
+<?php
+
+Analytics::endConnectionAndLogUserActivity(Analytics::LIST_PAGE_HIT);
+
+?>

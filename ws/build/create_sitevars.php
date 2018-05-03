@@ -1,13 +1,14 @@
 <?php
 
-// Create sitevars.php
+// create_sitevars_v2.php
+// Create Sitevars.php
 // REQUIRES command-line arguments:
 //   $domain (string)
 //   $name (string)
 //   $fallback (string)
 
 if ( count($argv) !== 4 ) {
-  echo "Incorrect arguments for creating sitevars.php\n" ;
+  echo "Incorrect arguments for creating Sitevars.php\n" ;
   echo count($argv) . " arguments provided:\n";
   foreach ($argv as $arg) {
     echo "  ";
@@ -29,13 +30,18 @@ if ( strpos($fallback, ' ') !== false ) {
   exit(1);
 }
 
-echo "<?php";
-echo "\n\n";
-echo "$" . "_SITE = [\n";
-echo "  'fallback_command' => '" . $fallback . "',\n";
-echo "  'name' => '" . $name . "',\n";
-echo "  'URL' => '" . $domain . "',\n";
-echo "];\n\n";
-echo "?>\n";
+echo "<?php\n";
+
+?>
+
+final class Sitevars {
+  const FALLBACK_COMMAND = "<?php echo $fallback; ?>";
+  const SITE_NAME = "<?php echo $name; ?>";
+  const DOMAIN_NAME = "<?php echo $domain; ?>";
+}
+
+<?php
+
+echo "?>";
 
 ?>

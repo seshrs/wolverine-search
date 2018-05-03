@@ -39,19 +39,20 @@ done
 #name="root"
 #echo "\n${bold}Q2. ${normal}What is the name"
 
-echo "${bold}[1/4] Creating sitevars.php...${normal}"
-if php build/create_sitevars.php $domain "$name" $fallback_command >sitevars.php; then
+echo "${bold}[1/5] Creating sitevars.php...${normal}"
+mkdir __util__
+if php build/create_sitevars.php $domain "$name" $fallback_command >__util__/Sitevars.php; then
   echo "Done!\n"
 else
   echo "${bold}${red}Could not create sitevars.php. Aborting...${normal}\n"
   exit
 fi
 
-echo "${bold}[2/4] Creating dbconfig.php...${normal}"
+echo "${bold}[2/5] Creating dbconfig.php...${normal}"
 php build/create_dbconfig.php $dbname $dbuser $dbpwd >scripts/dbconfig.php
 echo "Done!\n"
 
-echo "${bold}[3/4] Creating tables in database...${normal}"
+echo "${bold}[3/5] Creating tables in database...${normal}"
 cat <<EOM >~/.my.cnf
 [mysql]
 user=$dbuser
@@ -60,9 +61,14 @@ EOM
 mysql <build/create_ws_tables.sql
 echo "Done!\n"
 
-echo "${bold}[4/4] Building commands...${normal}"
-mkdir data
+echo "${bold}[4/5] Building commands...${normal}"
+mkdir search/__build__
 make build
+echo "Done!\n"
+
+echo "${bold}[5/5] Finishing post-flight tasks...${normal}"
+mkdir scripts/logs
+touch scripts/logs/analyticsErrorLog.log
 
 echo ""
 echo "${magenta}Initialization Complete! Visit ${bold}"$domain"${normal}${magenta} on your browser now :)\n${normal}"

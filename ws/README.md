@@ -39,6 +39,7 @@ code and instantly see the results of your changes, and to make sure that they w
     - Type `Control-x` (to exit), then type `y` (to save), then press `Enter` (to close the editor).all
 
 ### Clone, install, build and go!
+*(Note: You might want to fork the repository first. Follow the instructions here: https://blog.scottlowe.org/2015/01/27/using-fork-branch-git-workflow/.)*
 1. Navigate to some folder where you plan to store the Wolverine Search files. (For instance, `~/Documents/Projects`.)
 2. Clone the repository. Type `git clone [repository URL]`. You can get this information from the [main repository page](https://github.com/seshrs/wolverine-search) by clikcing the "Clone or Download" button.
 3. Navigate inside the folder that was just created.
@@ -58,32 +59,63 @@ When you want to begin developing again, type `vagrant up` to switch it back on.
 
 ## Commands
 
-All the Wolverine Search commands are written in plain PHP, and are all stored under [`ws/search/commands`](https://github.com/seshrs/wolverine-search/tree/master/ws/search/commands). Have a look at the implementations of some of the different commands. 
-Each command is simply a function that accepts a query as a parameter and returns a URL. The command is registered using the globally available function, and has access to the variable from `ws/sitevars.php` and [`ws/search/helpers.php`](https://github.com/seshrs/wolverine-search/blob/master/ws/search/helpers.php). 
-I recommend searching the [official PHP documentation](http://php.net/manual/en/) and [StackOverflow](https://stackoverflow.com/) if you have questions about PHP functions and their usage.
+All the Wolverine Search commands are written in plain PHP, and are all stored under [`ws/search`](https://github.com/seshrs/wolverine-search/tree/master/ws/search). Have a look at the implementations of some of the different commands. 
+Each command is a class that implements the interface [`ICommandController`](https://github.com/seshrs/wolverine-search/blob/master/ws/search/__definitions__/ICommandController.php). The following classes are declared for use in the command:
+
+- [`ws/search/__definitions__/Result.php`](https://github.com/seshrs/wolverine-search/blob/master/ws/search/__definitions__/Result.php): An Encapsulation of a Command's result
+- [`ws/__util__/Sitevars.php`](https://github.com/seshrs/wolverine-search/blob/master/ws/__util__/Sitevars.php): The dynamic site variables
+
+I recommend searching the [official PHP documentation](http://php.net/manual/en/) and [StackOverflow](https://stackoverflow.com/) if you have questions about standard PHP functions and their usage.
 
 ### Updating Existing Commands
-Pre-existing commands can always be improved. The logic for executing the command can be made more efficient. 
-Some commands like `piazza`, `canvas`, etc. require information about classes to generate the correct URL, and this information needs to be updated each semester.
+Pre-existing commands can always be improved -- the logic for executing the command can be made more efficient, features can be added, etc.
+Some commands like `piazza`, `canvas`, etc. require information about classes to generate the correct URL, and this information needs to be updated each semester. I would appreciate any help to improve these commands.
 
-Once you have implemented your command, visit [http://www.ws.local/?debug=1](http://www.ws.local/?debug=1) to make sure that when you type different queries, your command behaves as expected. You will have to include information on the tests you conducted before your pull request is accepted.
+Once you have implemented your command, visit [http://www.ws.local/debug](http://www.ws.local/debug) or [http://www.ws.local/?debug=1](http://www.ws.local/?debug=1) to make sure that when you type different queries, your command behaves as expected. You will have to include information on the tests you conducted before your pull request is accepted.
 
 Don't forget to update the command's documentation! It can be found in the `documentation` folder, which is in the same folder as the command's PHP file. (Visit [http://www.ws.local/list](http://www.ws.local/list) to ensure that the documentation renders correctly.)
 
 ### Creating new commands
-Creating a command is not that hard!
+Creating a command is not that hard! Here are the steps:
+
+1. Create the Command File and run `make build`.
+2. Implement and test the command.
+3. Create documentation file and run `make build`.
+4. Write the documentation, and check that it renders properly.
+5. Commit your code and [create a Pull Request](https://guides.github.com/activities/forking/#making-a-pull-request).
+
+**Step 1: Create the Command File**
 
 Use one of the existing folders (or create a new one) and create a file titled `<filename>.command.php`. Create a function that accepts a query and returns a URL, and register the function with the command's keywords.
 
 From your commandline interface, type `vagrant ssh` and then navigate to `/vagrant/ws`. Run the command `make build`.
 
-Then visit [http://www.ws.local/?debug=1](http://www.ws.local/?debug=1) and enter different queries that use your command. Ensure that your command behaves as you expect.
+*You only have to `make build` when you change the name or location of a command/documentation, or if you add a new command/documentation.*
 
-Don't forget to add documentation for the command! If it doesn't already exist, create a folder titled `documentation` in the same folder that the command's PHP file is located in. Inside this folder, create a file titled `<filename>.command.md`, and write documentation for your command. (Check out other documentation files for inspiration.) 
+**Step 2: Implement and test the command**
+
+The commands are written in plain PHP. Take inspiration from commands like [`piazza`](https://github.com/seshrs/wolverine-search/tree/master/ws/search/umich_class_tools/Piazza.command.md), [`cg`](https://github.com/seshrs/wolverine-search/tree/master/ws/search/umich_class_tools/CourseGuide.command.md) or [`mfile`](https://github.com/seshrs/wolverine-search/tree/master/ws/search/umich_generic/MFile.command.md).
+
+After you've written the code for the command, visit [http://www.ws.local/?debug=1](http://www.ws.local/?debug=1) and enter different queries that use your command. Ensure that your command behaves as you expect.
+
+**Step 3: Create the documentation file**
+
+Don't forget to add documentation for the command! If it doesn't already exist, create a folder titled `__documentation__` in the same folder that the command's PHP file is located in. Inside this folder, create a file titled `<filename>.command.md`, and write documentation for your command.
+
+*Don't forget to `make build` after you've created the file with the documentation.*
+
+**Step 4: Write the documentation**
+
+The Markdown should be of the flavor that GitHub uses. (Check out other documentation files for inspiration.)
+
 Visit [http://www.ws.local/list](http://www.ws.local/list) to ensure that the documentation renders correctly.
 
+**Step 5: Create a Pull Request**
+
+This is how you can merge your changes with the public project. Try reading https://guides.github.com/activities/forking/#making-a-pull-request for more information. (Feel free to email me at seshrs@umich.edu if you're stuck at this step.)
+
 ### Creating new default commands
-This is a fairly advanced section, and I am yet to write documentation for this. Read more about default commands in the ["about"](http://www.ws.local/about) section. 
+This is a more advanced section, and I am yet to write documentation for this. Read more about default commands in the ["about"](https://ws.heliohost.org/about) section of the website. 
 If you'd like to see an example, `eecs280` is a default command, located in its own folder.
 
 If you plan to create a new default command, email me at seshrs@umich.edu.

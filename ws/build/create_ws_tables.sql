@@ -30,7 +30,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `CommandLog` (
   `Command` varchar(100) NOT NULL COMMENT 'Wolverine Search Registered Command',
-  `Hits` bigint(20) NOT NULL DEFAULT '1' COMMENT 'Number of times command was queried in current period',
+  `InitHits` bigint(20) NOT NULL DEFAULT '1' COMMENT 'Number of times command was part of initial query in current period',
+  `ResolvedHits` bigint(20) NOT NULL DEFAULT '1' COMMENT 'Number of times command was part of resolved query in current period',
   PRIMARY KEY (`Command`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Counts number of times each registered command was used in the current period.';
 
@@ -42,7 +43,8 @@ CREATE TABLE IF NOT EXISTS `CommandLog` (
 
 CREATE TABLE IF NOT EXISTS `FallbackLog` (
   `Command` varchar(100) NOT NULL,
-  `Hits` int(11) NOT NULL DEFAULT '1',
+  `InitHits` bigint(20) NOT NULL DEFAULT '1' COMMENT 'Number of times command was part of initial query in current period',
+  `ResolvedHits` bigint(20) NOT NULL DEFAULT '1' COMMENT 'Number of times command was part of resolved query in current period',
   PRIMARY KEY (`Command`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Counts number of times each fallback command was used in the current period.';
 
@@ -54,7 +56,8 @@ CREATE TABLE IF NOT EXISTS `FallbackLog` (
 
 CREATE TABLE IF NOT EXISTS `QueryLog` (
   `Query` varchar(500) NOT NULL COMMENT 'Wolverine Search Query',
-  `Hits` bigint(20) NOT NULL DEFAULT '1' COMMENT 'Number of times queried in current period',
+  `InitHits` bigint(20) NOT NULL DEFAULT '1' COMMENT 'Number of times command was part of initial query in current period',
+  `ResolvedHits` bigint(20) NOT NULL DEFAULT '1' COMMENT 'Number of times command was part of resolved query in current period',
   PRIMARY KEY (`Query`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Counts number of times each unique query was used in the current period.';
 
