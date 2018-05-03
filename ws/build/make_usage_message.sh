@@ -1,4 +1,5 @@
 echo "\n Usage: make [init/build/uninstall]"
-echo "\t init: Creates sitevars.php, dbconfig.php and .htaccess"
+echo "\t init: Creates sitevars.php, dbconfig.php and .htaccess.  (Alias: install)"
 echo "\t build: Runs buildCommandFileMap.php to repopulate commandFileMap.json"
-echo "\t uninstall: Undoes changes made by init and build.\n"
+echo "\t clean: Undoes changes made by init and build. (Alias: uninstall)\n"
+echo "\t resetAnalytics: Removes all data from the MySQL tables. Leaves the structure intact."

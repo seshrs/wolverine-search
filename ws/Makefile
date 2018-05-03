@@ -12,6 +12,9 @@ build: FORCE
 	@touch search/__build__/documentation_content.json
 	@php build/buildDocumentation.php
 
+resetAnalytics: FORCE
+	@php scripts/resetLogs.php
+
 uninstall: FORCE
 	@sh build/uninstall.sh
 

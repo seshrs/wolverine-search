@@ -10,11 +10,11 @@
 //   will be printed instead of actually redirecting the browser.
 //
 
-require('../__util__/Sitevars.php');
-require_once('../scripts/analytics.php');
+require_once(__DIR__ . '/../__util__/Sitevars.php');
+require_once(__DIR__ . '/../scripts/Analytics.php');
 
 // Analytics
-Analytics::runAnalytics(Analytics::$USER_ACTION['LANDING']);
+Analytics::createDeviceIDIfNeeded();
 
 $fallback = isset($_REQUEST['fallback']) ? $_REQUEST['fallback'] : null;
 if (!$fallback || !strlen($fallback)) {
@@ -168,3 +168,9 @@ if ($debug !== '1') {
     </script>
   </body>
 </html>
+
+<?php
+
+Analytics::endConnectionAndLogUserActivity(Analytics::LANDING_PAGE_HIT);
+
+?>

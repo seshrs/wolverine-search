@@ -1,10 +1,10 @@
 <?php
 
-require('../__util__/Sitevars.php');
-require_once('../scripts/analytics.php');
+require(__DIR__ . '/../__util__/Sitevars.php');
+require_once(__DIR__ . '/../scripts/Analytics.php');
 
 // Analytics
-Analytics::runAnalytics(Analytics::$USER_ACTION['ABOUT']);
+Analytics::createDeviceIDIfNeeded();
 
 ?>
 
@@ -647,3 +647,9 @@ Analytics::runAnalytics(Analytics::$USER_ACTION['ABOUT']);
     </script>
   </body>
 </html>
+
+<?php
+
+Analytics::endConnectionAndLogUserActivity(Analytics::ABOUT_PAGE_HIT);
+
+?>

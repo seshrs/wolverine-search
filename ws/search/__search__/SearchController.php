@@ -7,6 +7,7 @@
 
 require_once(__DIR__ . '/../../__util__/Sitevars.php');
 require_once(__DIR__ . '/../__definitions__/ICommandController.php');
+require_once(__DIR__ . '/../../scripts/Analytics.php');
 
 class SearchController {
   /**
@@ -30,20 +31,20 @@ class SearchController {
     if ($result->isResultUnresolved()) {
       // Redirect to main site
       self::redirectUser(Sitevars::DOMAIN_NAME, $request, $request_trace);
-      self::endConnection();
     }
     else if ($result->isURL()) {
       self::redirectUser($result->getURL(), $request, $request_trace);
-      self::endConnection();
     }
     else {
       array_push($request_trace, $request);
-      self::search(
+      return self::search(
         implode(' ', [$result->getCommand(), $result->getQuery()]),
         $request_trace
       );
     }
-    self::logRequest($request, $request);
+    if (!$request['debug']) {
+      self::endConnectionAndLogRequest($request, $request_trace);
+    }
   }
 
   /**
@@ -146,17 +147,27 @@ class SearchController {
     echo json_encode($debug_info, JSON_PRETTY_PRINT);
   }
 
-  private static function endConnection() {
-    header('Connection: close');
-    header('Content-Length: ' . ob_get_length());
-    ob_end_flush();
-  }
-
-  private static function logRequest($request, $request) {
-    // TODO: Implement the logging
+  private static function endConnectionAndLogRequest($request, $request_trace) {
+    $init_request = null;
+    $resolved_request = $request;
+    if (count($request_trace) < 1) {
+      $init_request = $resolved_request;
+      $resolved_request = null;
+    }
+    else {
+      // Find the init request
+      for ($i = 0; $i < count($request_trace); ++$i) {
+        if ($request_trace[$i]['request_trace_id'] === 0) {
+          $init_request = $request_trace[$i];
+          break;
+        }
+      }
+    }
+    Analytics::endConnectionAndLogSearchRequest($init_request, $resolved_request);
   }
 }
 
+Analytics::createDeviceIDIfNeeded();
 SearchController::search();
 
 ?>

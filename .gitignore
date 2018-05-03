@@ -5,8 +5,10 @@ puphpet/files/dot/ssh
 
 /html
 
-ws/data/*
+ws/search/__build__
 ws/scripts/dbconfig.php
+ws/scripts/logs
 ws/sitevars.php
+ws/__util__/Sitevars.php
 
 .DS_Store

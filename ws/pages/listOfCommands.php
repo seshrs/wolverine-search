@@ -3,7 +3,10 @@
 // GET paramenter:
 //   q ==> Filter query (optional)
 
-require(__DIR__ . '/../__util__/Sitevars.php');
+require_once(__DIR__ . '/../__util__/Sitevars.php');
+require_once(__DIR__ . '/../scripts/Analytics.php');
+
+Analytics::createDeviceIDIfNeeded();
 
 ?>
 
@@ -361,3 +364,9 @@ require(__DIR__ . '/../__util__/Sitevars.php');
     
   </body>
 </html>
+
+<?php
+
+Analytics::endConnectionAndLogUserActivity(Analytics::LIST_PAGE_HIT);
+
+?>
