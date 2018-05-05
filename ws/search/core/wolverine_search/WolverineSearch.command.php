@@ -1,6 +1,6 @@
 <?php
 
-require_once(__DIR__ . '/GeneralSearchBaseController.php');
+require_once(__DIR__ . '/../general_search/GeneralSearchBaseController.php');
 
 /**
  * This command is included for the sake of documentation.
