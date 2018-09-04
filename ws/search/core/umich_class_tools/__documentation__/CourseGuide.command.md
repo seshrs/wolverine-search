@@ -15,7 +15,7 @@ home page at https://lsa.umich.edu/cg.
   - `fall 2016`
   - `wn 2017`
   - `spring summer`
-- `[requirements]`: An LSA distribution requirement. Must be one of the following:
+- `[requirements]`: An LSA distribution requirement. Must be from the following list:
   - `ce`: Creative Expression
   - `hu`: Humanities
   - `id`: Interdisciplinary Course

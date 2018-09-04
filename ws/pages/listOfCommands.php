@@ -281,9 +281,18 @@ Analytics::createDeviceIDIfNeeded();
       
       function applyInitialPanelDisplayMap() {
         for (var sectionIndex = 0; sectionIndex < panelDisplayMap.length; ++sectionIndex) {
+          if (!panelDisplayMap[sectionIndex][0]) {
+            // Hide the entire section
+            var sectionID = getSectionID(sectionIndex);
+            $('#' + sectionID).addClass('hidden');
+            continue;
+          }
+          if (panelDisplayMap[sectionIndex].length == 1) {
+            continue;
+          }
           var allHidden = true;
-          for (var documentationIndex = 0; documentationIndex < panelDisplayMap[sectionIndex].length; ++documentationIndex) {
-            var panelID = getPanelID(sectionIndex, documentationIndex);
+          for (var documentationIndex = 1; documentationIndex < panelDisplayMap[sectionIndex].length; ++documentationIndex) {
+            var panelID = getPanelID(sectionIndex, documentationIndex - 1);
             if (!panelDisplayMap[sectionIndex][documentationIndex]) {
               $('#' + panelID).addClass('hidden');
             }
@@ -302,10 +311,20 @@ Analytics::createDeviceIDIfNeeded();
         for (var sectionIndex = 0; sectionIndex < panelDisplayMap.length; ++sectionIndex) {
           var sectionID = getSectionID(sectionIndex);
           var isSectionAlreadyHidden = $('#' + sectionID).hasClass('hidden');
+          var doesSectionMetaContainFilter = newPanelDisplayMap[sectionIndex][0];
           var allHidden = true;
+
+          if (doesSectionMetaContainFilter) {
+            // Don't hide the entire section even in the panels are hidden
+            allHidden = false;
+          }
+          if (panelDisplayMap[sectionIndex].length == 1 && allHidden == false) {
+            $('#' + sectionID).removeClass('hidden');
+            continue;
+          }
           
-          for (var documentationIndex = 0; documentationIndex < panelDisplayMap[sectionIndex].length; ++documentationIndex) {
-            var panelID = getPanelID(sectionIndex, documentationIndex);
+          for (var documentationIndex = 1; documentationIndex < panelDisplayMap[sectionIndex].length; ++documentationIndex) {
+            var panelID = getPanelID(sectionIndex, documentationIndex - 1);
             var panelShouldBeHidden = !newPanelDisplayMap[sectionIndex][documentationIndex]
             var isPanelAlreadyHidden = !panelDisplayMap[sectionIndex][documentationIndex];
             if (panelShouldBeHidden && !isPanelAlreadyHidden) {
@@ -340,8 +359,17 @@ Analytics::createDeviceIDIfNeeded();
         // }
         for (var sectionIndex = 0; sectionIndex < documentationSectionsMarkdown.length; ++sectionIndex) {
           var displayMapRow = [];
+          var markdown = '';
+
+          // Check meta_md
+          if (documentationSectionsMarkdown[sectionIndex].meta_md) {
+            markdown = documentationSectionsMarkdown[sectionIndex].meta_md;
+          }
+          displayMapRow.push(markdown.search(pattern) !== -1);
+          
+          // Check panels
           for (var documentationIndex = 0; documentationIndex < documentationSectionsMarkdown[sectionIndex].markdown_content.length; ++documentationIndex) {
-            var markdown = documentationSectionsMarkdown[sectionIndex].markdown_content[documentationIndex];
+            markdown = documentationSectionsMarkdown[sectionIndex].markdown_content[documentationIndex];
             displayMapRow.push(markdown.search(pattern) !== -1);
           }
           newPanelDisplayMap.push(displayMapRow);
