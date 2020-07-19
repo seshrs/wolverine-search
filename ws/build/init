@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+
+if [ "$#" -ne 6 -a "$#" -ne 0 ]; then
+    echo "Usage: ./build/init [domain_url name fallback_command dbname dbuser dbpwd"
+    exit
+fi
+
+working_dir=$(dirname `dirname $0`)
+
+bold=$(tput bold)
+red=$(tput setaf 1)
+green=$(tput setaf 2)
+magenta=$(tput setaf 5)
+normal=$(tput sgr0)
+
+domain=${1:-"http://ws.local"}
+name=${2:-"Wolverine Search (Local)"}
+fallback_command=${3:-"g"}
+dbname=${4:-"ws_db"}
+dbuser=${5:-"root"}
+dbpwd=${6:-"root"}
+
+echo "Configuring with the following options:\n"
+echo "  domain: ${domain}\n"
+echo "  name: ${name}\n"
+echo "  fallback_command: ${fallback_command}\n"
+echo "  dbname: ${dbname}\n"
+echo "  dbuser: ${dbuser}\n"
+echo "  dbpwd: ${dbpwd}\n"
+echo "\n"
+
+echo "${bold}[1/5] Creating sitevars.php...${normal}"
+mkdir -p $working_dir/__util__
+if php $working_dir/build/create_sitevars.php $domain "$name" $fallback_command >$working_dir/__util__/Sitevars.php; then
+  echo "Done!\n"
+else
+  echo "${bold}${red}Could not create sitevars.php. Aborting...${normal}\n"
+  exit
+fi
+
+echo "${bold}[2/5] Creating dbconfig.php...${normal}"
+php $working_dir/build/create_dbconfig.php $dbname $dbuser $dbpwd >$working_dir/scripts/dbconfig.php
+echo "Done!\n"
+
+echo "${bold}[3/5] Creating tables in database...${normal}"
+cat <<EOM >~/.my.cnf
+[mysql]
+user=$dbuser
+password=$dbpwd
+EOM
+mysql <$working_dir/build/create_ws_tables.sql
+echo "Done!\n"
+
+echo "${bold}[4/5] Building commands...${normal}"
+mkdir -p $working_dir/search/__build__
+pushd $working_dir
+make build
+popd
+echo "Done!\n"
+
+echo "${bold}[5/5] Finishing post-flight tasks...${normal}"
+mkdir -p $working_dir/scripts/logs
+touch $working_dir/scripts/logs/analyticsErrorLog.log
+
+echo ""
+echo "${magenta}Initialization Complete! Visit ${bold}"$domain"${normal}${magenta} on your browser now :)\n${normal}"

@@ -1,0 +1,26 @@
+version: '3'
+services:
+  ws_dev:
+    build:
+      # location of DockerFile on local machine
+      context: ./local_dev
+      dockerfile: ApachePHP.Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./ws:/var/www/wolverine-search/ws
+    entrypoint: "/bin/bash /var/www/wolverine-search/ws/build/dockerinit"
+  # ws_db:
+  #   build:
+  #     context: ./local_dev/
+  #     dockerfile: MySQL.Dockerfile
+  #   ports:
+  #     - "3306:3306"
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: 'password123'
+  #   # If container fails, automatically try to restart.
+  #   restart: always
+  #   volumes:
+  #     - ./ws:/var/www/wolverine-search/ws
+

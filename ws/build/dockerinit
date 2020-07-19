@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+mysqladmin -u root password "root"
+mysql -u root -p root -e "CREATE DATABASE ws_db"
+script_dir=$(dirname $0)
+/bin/bash $script_dir/init
+echo "INIT COMPLETE"
+apachectl -D FOREGROUND

@@ -6,6 +6,7 @@
 //   $dbuser (string)
 //   $dbpwd (string)
 
+// if ( count($argv) !== 3 && count($argv) !== 4 ) {
 if ( count($argv) !== 4 ) {
   die('Invalid arguments provided to create_dbconfig.php');
 }
