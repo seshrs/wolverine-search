@@ -1,10 +1,3 @@
-puphpet/config-custom.yaml
-.vagrant
-puphpet/files/dot/ssh
-!puphpet/files/dot/ssh/insecure_private_key
-
-/html
-
 ws/search/__build__
 ws/scripts/dbconfig.php
 ws/scripts/logs
