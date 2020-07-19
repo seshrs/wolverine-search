@@ -22,38 +22,48 @@ Click one of the links to learn more about how you can help.
 Follow these steps to get Wolverine Search to work on your local computer. This will make it easier for you to make changes to the
 code and instantly see the results of your changes, and to make sure that they work as intended.
 
-### Installing prerequisites
+These setup instructions are optimized for Mac. Contact seshrs@umich.edu for help setting up Linux/WSL.
 
-1. Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
-2. *[Windows only]* Install [Git Bash](https://github.com/git-for-windows/git/releases/latest). You can use the default/recommended settings.
-3. Install [Vagrant](https://www.vagrantup.com/downloads.html).
+### First-time installation
 
-### Configure your Hosts file
-1. Open your commandline interface (Git Bash or Terminal).
-2. You need to edit the file `/etc/hosts`, and you'll need administroator access for that. One way to do this:
-    - Type `sudo nano /etc/hosts` and type your password.
-    - Scroll to the bottom, and add this line at the end of the file
-      ```
-      192.168.56.101 ws.local www.ws.local
-      ```
-    - Type `Control-x` (to exit), then type `y` (to save), then press `Enter` (to close the editor).all
+1. Install VirtualBox and Docker.
+```console
+$ brew cask install virtualbox
+$ brew install docker docker-machine docker-compose
+```
 
-### Clone, install, build and go!
-*(Note: You might want to fork the repository first. Follow the instructions here: https://blog.scottlowe.org/2015/01/27/using-fork-branch-git-workflow/.)*
-1. Navigate to some folder where you plan to store the Wolverine Search files. (For instance, `~/Documents/Projects`.)
-2. Clone the repository. Type `git clone [repository URL]`. You can get this information from the [main repository page](https://github.com/seshrs/wolverine-search) by clikcing the "Clone or Download" button.
-3. Navigate inside the folder that was just created.
-4. Type `vagrant up`. This may take a while, so make sure to wait for this step to complete before proceeding.
-5. Once the virtual machine has been installed and booted up, type `vagrant ssh`. This lets you manipulate the same repository through the virtual machine.
-6. Navigate to the folder `/vagrant`. The files here are from the repository you just cloned, and are shared with your local machine. Any changes you make here will also be reflected in the folder on your local machine.
-7. Navigate to the folder `/vagrant/ws`. These are the files that actually run the Wolverine Search website.
-8. Type `make init`. When prompted, type `yes`.
-9. Type `exit` to exit the virtual machine.
-10. Visit `www.ws.local` in your browser. You are now running a copy of Wolverine Search on your local machine!
+2. Setup a virtual machine and run a Docker "Hello World" program.
+```console
+$ docker-machine env default
+$ eval "$(docker-machine env default)"
+$ docker run hello-world
+...
+Hello from Docker!
+...
+$ docker-machine stop default
+```
 
-### Switch off the VM when not in use
-When you're done developing, type `vagrant halt` in your command-line interface to switch off the virtual machine. 
-When you want to begin developing again, type `vagrant up` to switch it back on.
+3. Configure your Hosts file with the IP address of the machine.
+Find the IP address by observing the output of `docker-machine env`.
+Then edit `/etc/hosts`: At the bottom of the file, add the following line.
+```
+<YOUR_MACHINE_IP_ADDRESS> ws.local www.ws.local
+```
+
+4. Clone the repository.
+
+### Everyday development steps
+
+Start the virtual machine and spin up the container.
+```console
+$ docker-machine start default
+$ docker-compose build
+$ docker-compose up
+```
+
+The site should now be active at [www.ws.local](www.ws.local).
+
+When you're done, don't forget to shut down the virtual machine. First press Control-C and wait for the container to stop. Then run `docker-machine stop default`.
 
 ---
 
@@ -106,7 +116,7 @@ Don't forget to add documentation for the command! If it doesn't already exist, 
 
 **Step 4: Write the documentation**
 
-The Markdown should be of the flavor that GitHub uses. (Check out other documentation files for inspiration.)
+Use the Markdown flavor that GitHub uses. (Check out other documentation files for inspiration.)
 
 Visit [http://www.ws.local/list](http://www.ws.local/list) to ensure that the documentation renders correctly.
 
